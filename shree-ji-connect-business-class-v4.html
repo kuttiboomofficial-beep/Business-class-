@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111111">
+<meta name="description" content="SHREE JI CONNECT - Business CRM">
+<title>SHREE JI CONNECT — Business Class</title>
+<style>
+:root{--gold:#f47b00;--dark:#111;--green:#16863d;--red:#b42318;--blue:#175cd3;--bg:#f4f5f7;--card:#fff;--text:#171717;--muted:#667085;--line:#e4e7ec}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--text)}
+header{position:sticky;top:0;z-index:30;background:#111;color:#fff;padding:14px 16px;border-bottom:4px solid var(--gold)}
+.brand{font-weight:900;font-size:21px}.sub{font-size:11px;color:#bfc3c9;margin-top:3px}
+nav{position:sticky;top:68px;z-index:29;background:#fff;border-bottom:1px solid var(--line);display:flex;gap:6px;overflow:auto;padding:9px}
+nav button{white-space:nowrap;border:0;border-radius:9px;padding:9px 12px;font-weight:800;background:#eef0f2;color:#333}
+nav button.active{background:var(--gold);color:#fff}
+main{max-width:1250px;margin:auto;padding:15px}.page{display:none}.page.active{display:block}
+h2{margin:7px 0 16px;font-size:28px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px;box-shadow:0 2px 10px #00000009;margin-bottom:14px}
+.hero{background:#111;color:#fff;border-radius:16px;padding:18px;margin-bottom:14px}.hero b{font-size:18px}.hero p{color:#c7c7c7;margin:6px 0 0}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.kpi{font-size:26px;font-weight:900;margin-top:6px}.muted{font-size:12px;color:var(--muted)}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+button,.btn{border:0;border-radius:10px;padding:10px 13px;font-weight:800;background:#111;color:#fff;cursor:pointer;font-size:13px}
+.orange{background:var(--gold)!important}.green{background:var(--green)!important}.red{background:var(--red)!important}.blue{background:var(--blue)!important}.light{background:#eef0f2!important;color:#222!important}
+input,select,textarea{width:100%;border:1px solid #d0d5dd;border-radius:10px;padding:10px;background:#fff;font:inherit}label{display:block;font-size:11px;font-weight:900;margin:7px 0 5px}
+.formgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.full{grid-column:1/-1}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:9px 7px;border-bottom:1px solid #eee;font-size:12px;vertical-align:top}th{background:#f8f9fa;font-weight:900}
+.tablewrap{overflow:auto}.status{display:inline-block;padding:4px 8px;border-radius:20px;background:#eef0f2;font-size:10px;font-weight:900}
+.empty{text-align:center;padding:30px;color:#777}.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.tile{padding:14px;border:1px solid var(--line);border-radius:14px;background:#fff}
+.modal{display:none;position:fixed;inset:0;background:#0009;z-index:80;padding:10px;overflow:auto}.modalbox{max-width:850px;margin:20px auto;background:#fff;border-radius:18px;padding:17px}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:11px 16px;border-radius:10px;display:none;z-index:100}
+.preview{max-width:100%;border-radius:12px;border:1px solid var(--line);margin-top:8px}.queue{max-height:390px;overflow:auto;border:1px solid var(--line);border-radius:12px}
+.row{display:flex;gap:10px;align-items:center;padding:10px;border-bottom:1px solid #eee}.row input{width:auto}
+.small{font-size:11px}.danger{color:var(--red);font-weight:800}.pill{display:inline-block;padding:5px 8px;border-radius:20px;background:#f1f3f5;margin:2px}
+@media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}.tiles{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:650px){main{padding:10px}.formgrid,.tiles{grid-template-columns:1fr}h2{font-size:25px}.kpi{font-size:21px}th,td{padding:7px 5px}}
+@media print{header,nav,.no-print,button{display:none!important}main{max-width:none;padding:0}.page{display:none!important}.page.printing{display:block!important}.card{box-shadow:none}}
+</style>
+</head>
+<body>
+<header><div class="brand">SHREE JI CONNECT</div><div class="sub">CRM • Orders • Production • Accounts • WhatsApp • Reports</div></header>
+<nav id="nav">
+<button data-page="dashboard">Dashboard</button><button data-page="customers">Customers</button><button data-page="orders">Orders</button>
+<button data-page="production">Production</button><button data-page="accounts">Accounts</button><button data-page="whatsapp">WhatsApp</button>
+<button data-page="templates">Templates</button><button data-page="exhibitions">Exhibitions</button><button data-page="scanner">Card Scanner</button>
+<button data-page="reports">Reports</button><button data-page="print">Print</button><button data-page="backup">Backup</button><button data-page="settings">Settings</button>
+</nav>
+<main>
+
+<section id="dashboard" class="page">
+<div class="hero"><b id="dashCompany">SHREE JI GOLD CREATOR LLP</b><p>Business control center</p></div>
+<div class="grid" id="dashKpis"></div>
+<div class="card"><h3>Quick Actions</h3><div class="actions">
+<button class="orange" onclick="openCustomer()">+ Customer</button><button class="orange" onclick="openOrder()">+ Order</button>
+<button class="green" onclick="go('whatsapp')">WhatsApp</button><button class="blue" onclick="go('scanner')">Scan Visiting Card</button>
+<button class="light" onclick="go('reports')">Reports</button>
+</div></div>
+<div class="card"><h3>Recent Orders</h3><div class="tablewrap" id="recentOrders"></div></div>
+</section>
+
+<section id="customers" class="page">
+<h2>Customer CRM</h2>
+<div class="actions"><button class="orange" onclick="openCustomer()">+ Add Customer</button><input id="customerSearch" placeholder="Search party, customer, phone, city" oninput="renderCustomers()"></div>
+<div class="card tablewrap" id="customerTable"></div>
+</section>
+
+<section id="orders" class="page">
+<h2>Order Management</h2>
+<div class="actions"><button class="orange" onclick="openOrder()">+ New Order</button><input id="orderSearch" placeholder="Search order, customer, status" oninput="renderOrders()"></div>
+<div class="card tablewrap" id="orderTable"></div>
+</section>
+
+<section id="production" class="page"><h2>Production Control</h2><div id="productionContent"></div></section>
+
+<section id="accounts" class="page">
+<h2>Accounts & Outstanding</h2>
+<div class="grid" id="accountKpis"></div>
+<div class="card"><div class="actions"><button class="orange" onclick="openPayment()">+ Record Payment</button><input id="accountSearch" placeholder="Search customer" oninput="renderAccounts()"></div><div class="tablewrap" id="accountTable"></div></div>
+</section>
+
+<section id="whatsapp" class="page">
+<h2>WhatsApp Center</h2>
+<div class="card"><div class="formgrid">
+<div><label>Customer</label><select id="waCustomer" onchange="fillWA()"></select></div>
+<div><label>Template</label><select id="waTemplate" onchange="fillWA()"></select></div>
+<div class="full"><label>Message Preview</label><textarea id="waMessage" rows="8"></textarea></div>
+</div><div class="actions"><button class="green" onclick="sendWA()">Open WhatsApp</button><button class="light" onclick="copyWA()">Copy</button><button class="orange" onclick="go('bulk')">Bulk Queue</button></div></div>
+</section>
+
+<section id="bulk" class="page">
+<h2>WhatsApp Bulk Queue</h2>
+<div class="hero"><b>Safe one-by-one sending</b><p>The app opens one WhatsApp chat at a time. It does not auto-send messages.</p></div>
+<div class="card"><div class="formgrid"><div><label>Template</label><select id="bulkTemplate"></select></div><div><label>Search</label><input id="bulkSearch" oninput="renderBulk()"></div></div>
+<div class="actions"><button class="orange" onclick="selectBulk(true)">Select All</button><button class="light" onclick="selectBulk(false)">Clear</button><button class="green" onclick="nextBulk()">Open Next</button><button class="light" onclick="resetBulk()">Reset</button></div>
+<p class="muted" id="bulkCount"></p><div class="queue" id="bulkList"></div></div>
+</section>
+
+<section id="templates" class="page">
+<h2>Message Templates</h2><div class="actions"><button class="orange" onclick="openTemplate()">+ New Template</button><button class="light" onclick="go('bulk')">Bulk Queue</button></div>
+<div class="tiles" id="templateGrid"></div>
+</section>
+
+<section id="exhibitions" class="page">
+<h2>Exhibitions</h2><div class="actions"><button class="orange" onclick="openExhibition()">+ New Exhibition</button></div>
+<div class="card tablewrap" id="exhibitionTable"></div>
+</section>
+
+<section id="scanner" class="page">
+<h2>Smart Visiting Card Scanner</h2>
+<div class="card">
+<p class="muted">Take a clear card photo. OCR extracts text and attempts to identify shop name, contact name, phone and full address. Review everything before saving.</p>
+<div class="formgrid">
+<div><label>Card Photo</label><input id="cardFile" type="file" accept="image/*" capture="environment" onchange="previewCard(event)">
+<img id="cardImage" class="preview" style="display:none"><div id="scanStatus" class="muted"></div></div>
+<div><label>Shop / Party Name</label><input id="scanShop"><label>Customer / Contact Name</label><input id="scanName"><label>Phone / WhatsApp</label><input id="scanPhone"><label>Full Address</label><textarea id="scanAddress" rows="5"></textarea></div>
+<div class="full"><label>Detected Text</label><textarea id="scanText" rows="6"></textarea></div>
+</div>
+<div class="actions"><button id="scanBtn" class="orange" disabled onclick="scanCard()">🔍 Scan & Auto Fill</button><button class="blue" onclick="translateScan()">🌐 Convert Detected Text to English</button><button class="green" onclick="saveScannedCustomer()">Save Customer</button><button class="light" onclick="clearScan()">Clear</button></div>
+<p class="muted">Translation uses an online translation endpoint when available; always review names and addresses before saving.</p>
+</div>
+</section>
+
+<section id="reports" class="page">
+<h2>Business Reports</h2>
+<div class="grid" id="reportCards"></div>
+<div class="card">
+<div class="formgrid"><div><label>From</label><input id="reportFrom" type="date" onchange="renderReports()"></div><div><label>To</label><input id="reportTo" type="date" onchange="renderReports()"></div></div>
+<div class="actions"><button onclick="exportCSV()">Export CSV</button><button class="light" onclick="printReport()">Print Report</button></div>
+<div class="tablewrap" id="reportTable"></div>
+</div>
+</section>
+
+<section id="print" class="page">
+<h2>Professional Print Center</h2><div class="card"><label>Order</label><select id="printOrder"></select><div class="actions"><button class="orange" onclick="printSelectedOrder()">Print Order Slip</button></div></div>
+</section>
+
+<section id="backup" class="page">
+<h2>Data Safety</h2><div class="card"><p class="muted">The business database is stored locally in this browser using IndexedDB. Export backups regularly.</p>
+<div class="actions"><button class="orange" onclick="exportBackup()">Export Full Backup</button><label class="btn light">Import Backup<input type="file" accept=".json" hidden onchange="importBackup(event)"></label><button class="red" onclick="factoryReset()">Reset Database</button></div>
+<p id="dbStatus" class="muted"></p></div>
+</section>
+
+<section id="settings" class="page">
+<h2>Business Settings</h2><div class="card"><div class="formgrid"><div><label>Company Name</label><input id="setCompany"></div><div><label>Phone</label><input id="setPhone"></div><div class="full"><label>Address</label><textarea id="setAddress" rows="3"></textarea></div><div><label>Currency</label><input id="setCurrency" value="₹"></div></div>
+<div class="actions"><button class="orange" onclick="saveSettings()">Save Settings</button><button class="light" onclick="lockApp()">Lock App</button></div></div>
+</section>
+
+<section id="lock" class="page"><div class="card" style="max-width:420px;margin:50px auto;text-align:center"><h2>🔐 App Locked</h2><p class="muted">Enter your PIN to continue.</p><input id="unlockPin" type="password" inputmode="numeric" maxlength="8"><div class="actions" style="justify-content:center"><button class="orange" onclick="unlockApp()">Unlock</button></div></div></section>
+
+</main>
+
+<div id="modal" class="modal"><div class="modalbox"><div style="display:flex;justify-content:space-between;align-items:center"><h3 id="modalTitle">Form</h3><button class="light" onclick="closeModal()">✕</button></div><div id="modalBody"></div></div></div>
+<div id="toast" class="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<script>
+const DB_NAME='SJC_BUSINESS_CLASS',DB_VER=1;
+const stores=['customers','orders','payments','templates','exhibitions','settings'];
+const DEFAULT_TEMPLATES=[
+{id:'confirm',name:'Order Confirmation',body:'Dear {{name}},\\n\\nYour order {{order}} has been confirmed.\\nWeight: {{weight}} g\\n\\nThank you for choosing SHREE JI GOLD CREATOR LLP.'},
+{id:'started',name:'Order Started',body:'Dear {{name}},\\n\\nYour order {{order}} has been started in production.\\n\\nThank you.'},
+{id:'finished',name:'Order Finished',body:'Dear {{name}},\\n\\nYour order {{order}} is finished.\\n\\nThank you.'},
+{id:'delivered',name:'Order Delivered',body:'Dear {{name}},\\n\\nYour order {{order}} has been delivered. Thank you for choosing SHREE JI GOLD CREATOR LLP.'},
+{id:'payment',name:'Payment Reminder',body:'Dear {{name}},\\n\\nThis is a friendly reminder regarding your outstanding amount of {{balance}}.\\n\\nThank you.'},
+{id:'thanks',name:'Thank You',body:'Dear {{name}},\\n\\nThank you for your valuable order and continued support.'},
+{id:'exhibition',name:'Exhibition Thank You',body:'Dear {{name}},\\n\\nThank you for visiting our exhibition stall and for your valuable order. We truly appreciate your support.'},
+{id:'custom',name:'Custom Message',body:'Dear {{name}},\\n\\n'}
+];
+let dbx=null, data={customers:[],orders:[],payments:[],templates:[],exhibitions:[],settings:{company:'SHREE JI GOLD CREATOR LLP',phone:'',address:'',currency:'₹'}};
+const $=id=>document.getElementById(id), esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+function toast(t){$('toast').textContent=t;$('toast').style.display='block';setTimeout(()=>$('toast').style.display='none',1800)}
+function modal(t,b){$('modalTitle').textContent=t;$('modalBody').innerHTML=b;$('modal').style.display='block'}
+function closeModal(){$('modal').style.display='none'}
+function openDB(){return new Promise((resolve,reject)=>{let r=indexedDB.open(DB_NAME,DB_VER);r.onupgradeneeded=e=>{let d=e.target.result;stores.forEach(s=>{if(!d.objectStoreNames.contains(s))d.createObjectStore(s,{keyPath:'id'})})};r.onsuccess=()=>{dbx=r.result;resolve()};r.onerror=()=>reject(r.error)})}
+function tx(store,mode='readonly'){return dbx.transaction(store,mode).objectStore(store)}
+function getAll(store){return new Promise((res,rej)=>{let r=tx(store).getAll();r.onsuccess=()=>res(r.result||[]);r.onerror=()=>rej(r.error)})}
+function put(store,obj){return new Promise((res,rej)=>{let r=tx(store,'readwrite').put(obj);r.onsuccess=()=>res();r.onerror=()=>rej(r.error)})}
+function del(store,id){return new Promise((res,rej)=>{let r=tx(store,'readwrite').delete(id);r.onsuccess=()=>res();r.onerror=()=>rej(r.error)})}
+async function load(){for(const s of stores)data[s]=await getAll(s);
+for(const o of data.orders){o.weight=Number(o.weight)||0;o.orderValue=Number(o.orderValue)||0;o.advance=Number(o.advance)||0;}
+for(const p of data.payments){p.amount=Number(p.amount)||0;}
+if(!data.templates.length){data.templates=DEFAULT_TEMPLATES;for(const t of data.templates)await put('templates',t)}if(!data.settings.length){const s={id:'main',company:'SHREE JI GOLD CREATOR LLP',phone:'',address:'',currency:'₹'};await put('settings',s);data.settings=s}else{data.settings={...{id:'main',company:'SHREE JI GOLD CREATOR LLP',phone:'',address:'',currency:'₹'},...data.settings[0]};await put('settings',data.settings)}$('dbStatus').textContent='IndexedDB active • '+data.customers.length+' customers • '+data.orders.length+' orders'}
+function customer(id){return data.customers.find(c=>String(c.id)===String(id))||{}}
+function order(id){return data.orders.find(o=>String(o.id)===String(id))}
+function balance(c){let billed=data.orders.filter(o=>o.customerId===c.id).reduce((s,o)=>s+(+o.orderValue||0),0);let paid=data.payments.filter(p=>p.customerId===c.id).reduce((s,p)=>s+(+p.amount||0),0);return billed-paid}
+function go(p){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));let el=$(p);if(el)el.classList.add('active');document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===p));renderAll()}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>go(b.dataset.page));
+function customerForm(c,id){return `<div class="formgrid"><div class="full"><label>Shop / Party Name *</label><input id="f_shop" value="${esc(c.shop||c.name||'')}"></div><div><label>Customer / Contact Name</label><input id="f_name" value="${esc(c.contactName||'')}"></div><div><label>WhatsApp / Phone *</label><input id="f_phone" value="${esc(c.phone||c.mobile||'')}"></div><div><label>Alternate Phone</label><input id="f_alt" value="${esc(c.alt||'')}"></div><div><label>Email</label><input id="f_email" value="${esc(c.email||'')}"></div><div><label>City</label><input id="f_city" value="${esc(c.city||'')}"></div><div><label>State</label><input id="f_state" value="${esc(c.state||'Tamil Nadu')}"></div><div><label>Pincode</label><input id="f_pin" value="${esc(c.pincode||'')}"></div><div class="full"><label>Full Address</label><textarea id="f_address" rows="3">${esc(c.address||'')}</textarea></div><div><label>GSTIN</label><input id="f_gst" value="${esc(c.gstin||'')}" placeholder="Optional"></div><div><label>Exhibition / Source</label><input id="f_ex" value="${esc(c.exhibition||'')}"></div><div class="full"><label>Notes</label><textarea id="f_notes">${esc(c.notes||'')}</textarea></div></div><div class="actions"><button class="orange" onclick="saveCustomer(${id?JSON.stringify(id):'null'})">Save Customer</button></div>`}
+function openCustomer(id){let c=id?customer(id):{};modal(id?'Edit Customer':'Add Customer',customerForm(c,id))}
+async function saveCustomer(id){let c={id:id||'C'+Date.now(),shop:$('f_shop').value.trim(),name:$('f_shop').value.trim(),contactName:$('f_name').value.trim(),phone:$('f_phone').value.trim(),alt:$('f_alt').value.trim(),email:$('f_email').value.trim(),city:$('f_city').value.trim(),state:$('f_state').value.trim(),pincode:$('f_pin').value.trim(),address:$('f_address').value.trim(),gstin:$('f_gst').value.trim(),exhibition:$('f_ex').value.trim(),notes:$('f_notes').value.trim(),updatedAt:new Date().toISOString()};if(!c.shop||!c.phone)return toast('Shop/Party Name and phone are required');await put('customers',c);data.customers=await getAll('customers');closeModal();renderAll();toast('Customer saved')}
+async function deleteCustomer(id){if(!confirm('Delete customer and related orders/payments?'))return;for(const o of data.orders.filter(x=>x.customerId===id))await del('orders',o.id);for(const p of data.payments.filter(x=>x.customerId===id))await del('payments',p.id);await del('customers',id);data.customers=await getAll('customers');data.orders=await getAll('orders');data.payments=await getAll('payments');renderAll();toast('Customer deleted')}
+function renderCustomers(){let q=($('customerSearch')?.value||'').toLowerCase();let a=data.customers.filter(c=>(c.shop+' '+c.contactName+' '+c.phone+' '+c.city+' '+c.address).toLowerCase().includes(q));$('customerTable').innerHTML=a.length?`<table><tr><th>Shop</th><th>Contact</th><th>Phone</th><th>Address</th><th>Orders</th><th>Outstanding</th><th>Action</th></tr>${a.map(c=>`<tr><td><b>${esc(c.shop)}</b><br><span class="muted">${esc(c.gstin||'')}</span></td><td>${esc(c.contactName||'-')}</td><td>${esc(c.phone)}</td><td>${esc(c.address||'-')}<br>${esc(c.city||'')} ${esc(c.pincode||'')}</td><td>${data.orders.filter(o=>o.customerId===c.id).length}</td><td>${data.settings.currency}${balance(c).toFixed(2)}</td><td><button class="light" onclick="openCustomer('${esc(c.id)}')">Edit</button> <button class="red" onclick="deleteCustomer('${esc(c.id)}')">Delete</button></td></tr>`).join('')}</table>`:'<div class="empty">No customers found</div>'}
+
+function openOrder(id){if(!data.customers.length)return toast('Add a customer first');let o=id?order(id):{orderNo:'SJ-'+new Date().getFullYear()+'-'+String(data.orders.length+1).padStart(4,'0'),date:new Date().toISOString().slice(0,10),customerId:data.customers[0].id,type:'Direct',weight:'',touch:'',screw:'',ladyRing:'',gentRing:'',huid:'Yes',advance:'',orderValue:'',startDate:'',deliveryDate:'',status:'Pending',notes:''};modal(id?'Edit Order':'New Order',`<div class="formgrid"><div><label>Order Number *</label><input id="o_no" value="${esc(o.orderNo)}"></div><div><label>Order Date *</label><input id="o_date" type="date" value="${esc(o.date||'')}"></div><div><label>Customer *</label><select id="o_cust">${data.customers.map(c=>`<option value="${esc(c.id)}" ${c.id===o.customerId?'selected':''}>${esc(c.shop)} — ${esc(c.phone)}</option>`).join('')}</select></div><div><label>Order Type</label><select id="o_type"><option ${o.type==='Direct'?'selected':''}>Direct</option><option ${o.type==='SM'?'selected':''}>SM</option></select></div><div><label>Weight (g) *</label><input id="o_weight" type="number" step=".001" value="${esc(o.weight)}"></div><div><label>Touch *</label><input id="o_touch" value="${esc(o.touch)}"></div><div><label>Screw Type</label><input id="o_screw" value="${esc(o.screw)}"></div><div><label>Lady's Ring Size</label><input id="o_lady" value="${esc(o.ladyRing)}"></div><div><label>Gent's Ring Size</label><input id="o_gent" value="${esc(o.gentRing)}"></div><div><label>HUID</label><select id="o_huid"><option ${o.huid!=='No'?'selected':''}>Yes</option><option ${o.huid==='No'?'selected':''}>No</option></select></div><div><label>Order Value (₹)</label><input id="o_value" type="number" step=".01" value="${esc(o.orderValue||'')}"></div><div><label>Advance Received (₹)</label><input id="o_adv" type="number" step=".01" value="${esc(o.advance||'')}"></div><div><label>Start Date</label><input id="o_start" type="date" value="${esc(o.startDate||'')}"></div><div><label>Delivery Date</label><input id="o_delivery" type="date" value="${esc(o.deliveryDate||'')}"></div><div><label>Status</label><select id="o_status">${['Pending','Started','In Production','Finished','Delivered','Cancelled'].map(s=>`<option ${o.status===s?'selected':''}>${s}</option>`).join('')}</select></div><div class="full"><label>Notes</label><textarea id="o_notes">${esc(o.notes||'')}</textarea></div></div><div class="actions"><button class="orange" onclick="saveOrder(${id?JSON.stringify(id):'null'})">Save Order</button></div>`)}
+async function saveOrder(id){let x={id:id||'O'+Date.now(),orderNo:$('o_no').value.trim(),date:$('o_date').value,customerId:$('o_cust').value,type:$('o_type').value,weight:+$('o_weight').value||0,touch:$('o_touch').value.trim(),screw:$('o_screw').value.trim(),ladyRing:$('o_lady').value.trim(),gentRing:$('o_gent').value.trim(),huid:$('o_huid').value,orderValue:+$('o_value').value||0,advance:+$('o_adv').value||0,startDate:$('o_start').value,deliveryDate:$('o_delivery').value,status:$('o_status').value,notes:$('o_notes').value.trim(),updatedAt:new Date().toISOString()};if(!x.orderNo||!x.date||!x.weight||!x.touch)return toast('Order number, date, weight and touch are required');await put('orders',x);data.orders=await getAll('orders');closeModal();renderAll();toast('Order saved')}
+async function deleteOrder(id){if(!confirm('Delete this order?'))return;await del('orders',id);data.orders=await getAll('orders');renderAll();toast('Order deleted')}
+function renderOrders(){let q=($('orderSearch')?.value||'').toLowerCase();let a=data.orders.filter(o=>(o.orderNo+' '+customer(o.customerId).shop+' '+o.status).toLowerCase().includes(q)).slice().reverse();$('orderTable').innerHTML=a.length?`<table><tr><th>Order</th><th>Date</th><th>Customer</th><th>Type</th><th>Weight</th><th>Value</th><th>Status</th><th>Action</th></tr>${a.map(o=>`<tr><td><b>${esc(o.orderNo)}</b></td><td>${esc(o.date)}</td><td>${esc(customer(o.customerId).shop)}</td><td>${esc(o.type)}</td><td>${o.weight}g</td><td>${data.settings.currency}${(Number(o.orderValue)||0).toFixed(2)}</td><td><span class="status">${esc(o.status)}</span></td><td><button class="light" onclick="openOrder('${esc(o.id)}')">Edit</button> <button onclick="printOrder('${esc(o.id)}')">Print</button> <button class="red" onclick="deleteOrder('${esc(o.id)}')">Delete</button></td></tr>`).join('')}</table>`:'<div class="empty">No orders found</div>'}
+
+async function setStatus(id,s){let o=order(id);o.status=s;if(s==='Started'&&!o.startDate)o.startDate=new Date().toISOString().slice(0,10);if(s==='Delivered'&&!o.deliveryDate)o.deliveryDate=new Date().toISOString().slice(0,10);await put('orders',o);data.orders=await getAll('orders');renderAll();toast('Production status updated')}
+function prodBlock(type){let a=data.orders.filter(o=>o.type===type);let weight=a.reduce((s,o)=>s+o.weight,0);return `<div class="card"><h3>${type} Production</h3><div class="grid"><div class="card"><span class="muted">Orders</span><div class="kpi">${a.length}</div></div><div class="card"><span class="muted">Weight</span><div class="kpi">${weight.toFixed(3)}g</div></div><div class="card"><span class="muted">Pending</span><div class="kpi">${a.filter(o=>o.status==='Pending').length}</div></div><div class="card"><span class="muted">Finished</span><div class="kpi">${a.filter(o=>o.status==='Finished').length}</div></div></div><div class="tablewrap"><table><tr><th>Order</th><th>Customer</th><th>Weight</th><th>Status</th><th>Change</th></tr>${a.slice().reverse().map(o=>`<tr><td>${esc(o.orderNo)}</td><td>${esc(customer(o.customerId).shop)}</td><td>${o.weight}g</td><td>${esc(o.status)}</td><td><select onchange="setStatus('${esc(o.id)}',this.value)">${['Pending','Started','In Production','Finished','Delivered','Cancelled'].map(s=>`<option ${o.status===s?'selected':''}>${s}</option>`).join('')}</select></td></tr>`).join('')||'<tr><td colspan="5" class="empty">No orders</td></tr>'}</table></div></div>`}
+function renderProduction(){$('productionContent').innerHTML=prodBlock('Direct')+prodBlock('SM')}
+
+async function openPayment(){if(!data.customers.length)return toast('Add a customer first');modal('Record Payment',`<div class="formgrid"><div><label>Customer</label><select id="p_cust">${data.customers.map(c=>`<option value="${esc(c.id)}">${esc(c.shop)}</option>`).join('')}</select></div><div><label>Date</label><input id="p_date" type="date" value="${new Date().toISOString().slice(0,10)}"></div><div><label>Amount (₹) *</label><input id="p_amt" type="number" step=".01"></div><div><label>Mode</label><select id="p_mode"><option>Cash</option><option>UPI</option><option>Bank</option><option>Card</option></select></div><div><label>Reference</label><input id="p_ref"></div><div class="full"><label>Notes</label><textarea id="p_notes"></textarea></div></div><button class="orange" onclick="savePayment()">Save Payment</button>`)}
+async function savePayment(){let p={id:'P'+Date.now(),customerId:$('p_cust').value,date:$('p_date').value,amount:+$('p_amt').value||0,mode:$('p_mode').value,reference:$('p_ref').value.trim(),notes:$('p_notes').value.trim()};if(!p.amount)return toast('Amount required');await put('payments',p);data.payments=await getAll('payments');closeModal();renderAll();toast('Payment saved')}
+function renderAccounts(){let totalValue=data.orders.reduce((s,o)=>s+(Number(o.orderValue)||0),0),paid=data.payments.reduce((s,p)=>s+(Number(p.amount)||0),0),adv=data.orders.reduce((s,o)=>s+(Number(o.advance)||0),0);$('accountKpis').innerHTML=[['Order Value',totalValue],['Payments',paid+adv],['Outstanding',Math.max(0,totalValue-paid-adv)]].map(x=>`<div class="card"><span class="muted">${x[0]}</span><div class="kpi">${data.settings.currency}${x[1].toFixed(2)}</div></div>`).join('');let q=($('accountSearch')?.value||'').toLowerCase();let a=data.customers.filter(c=>(c.shop+' '+c.phone).toLowerCase().includes(q));$('accountTable').innerHTML=a.length?`<table><tr><th>Customer</th><th>Orders Value</th><th>Advance</th><th>Payments</th><th>Outstanding</th></tr>${a.map(c=>{let ov=data.orders.filter(o=>o.customerId===c.id).reduce((s,o)=>s+(Number(o.orderValue)||0),0),ad=data.orders.filter(o=>o.customerId===c.id).reduce((s,o)=>s+(Number(o.advance)||0),0),pa=data.payments.filter(p=>p.customerId===c.id).reduce((s,p)=>s+(Number(p.amount)||0),0);return `<tr><td><b>${esc(c.shop)}</b><br>${esc(c.phone)}</td><td>${data.settings.currency}${ov.toFixed(2)}</td><td>${data.settings.currency}${ad.toFixed(2)}</td><td>${data.settings.currency}${pa.toFixed(2)}</td><td><b>${data.settings.currency}${Math.max(0,ov-ad-pa).toFixed(2)}</b></td></tr>`}).join('')}</table>`:'<div class="empty">No customers</div>'}
+
+function tplOptions(){return data.templates.map(t=>`<option value="${esc(t.id)}">${esc(t.name)}</option>`).join('')}
+function fillWA(){let c=customer($('waCustomer').value),o=data.orders.filter(x=>x.customerId===c.id).slice(-1)[0],t=data.templates.find(x=>x.id===$('waTemplate').value)||data.templates[0];$('waMessage').value=renderMessage(t?.body||'',c,o)}
+function renderMessage(body,c,o){let bal=balance(c);return body.replaceAll('{{name}}',c.contactName||c.shop||'Customer').replaceAll('{{shop}}',c.shop||'').replaceAll('{{phone}}',c.phone||'').replaceAll('{{order}}',o?.orderNo||'').replaceAll('{{weight}}',o?.weight||'').replaceAll('{{city}}',c.city||'').replaceAll('{{balance}}',data.settings.currency+bal.toFixed(2))}
+function renderWA(){if(!$('waCustomer'))return;$('waCustomer').innerHTML=data.customers.map(c=>`<option value="${esc(c.id)}">${esc(c.shop)} — ${esc(c.phone)}</option>`).join('')||'<option>No customers</option>';$('waTemplate').innerHTML=tplOptions();fillWA()}
+function sendWA(){let c=customer($('waCustomer').value),n=(c.phone||'').replace(/\D/g,'');if(n.length===10)n='91'+n;if(n.length<10)return toast('Phone missing');window.open('https://wa.me/'+n+'?text='+encodeURIComponent($('waMessage').value),'_blank')}
+async function copyWA(){try{await navigator.clipboard.writeText($('waMessage').value);toast('Message copied')}catch(e){toast('Copy unavailable')}}
+function selectedBulk(){return new Set(JSON.parse(localStorage.getItem('sjc_bulk_v3')||'[]'))}
+function saveBulk(s){localStorage.setItem('sjc_bulk_v3',JSON.stringify([...s]))}
+function renderBulk(){if(!$('bulkList'))return;let s=selectedBulk(),q=($('bulkSearch')?.value||'').toLowerCase();$('bulkTemplate').innerHTML=tplOptions();let a=data.customers.filter(c=>(c.shop+' '+c.contactName+' '+c.phone+' '+c.city).toLowerCase().includes(q));$('bulkList').innerHTML=a.map(c=>`<label class="row"><input type="checkbox" ${s.has(String(c.id))?'checked':''} onchange="toggleBulk('${esc(c.id)}',this.checked)"><span><b>${esc(c.shop)}</b><br><span class="muted">${esc(c.phone)} ${esc(c.city||'')}</span></span></label>`).join('')||'<div class="empty">No customers</div>';$('bulkCount').textContent=[...s].filter(id=>data.customers.some(c=>String(c.id)===id)).length+' selected'} 
+function toggleBulk(id,on){let s=selectedBulk();on?s.add(String(id)):s.delete(String(id));saveBulk(s);renderBulk()}
+function selectBulk(on){saveBulk(new Set(on?data.customers.map(c=>String(c.id)):[]));renderBulk()}
+function resetBulk(){localStorage.setItem('sjc_bulk_i_v3','0');toast('Queue reset')}
+function nextBulk(){let ids=[...selectedBulk()],i=+(localStorage.getItem('sjc_bulk_i_v3')||0);if(!ids.length)return toast('Select customers first');if(i>=ids.length)i=0;let c=customer(ids[i]),o=data.orders.filter(x=>x.customerId===c.id).slice(-1)[0],t=data.templates.find(x=>x.id===$('bulkTemplate').value)||data.templates[0],n=(c.phone||'').replace(/\D/g,'');if(n.length===10)n='91'+n;if(n.length<10)return toast('Phone missing: '+c.shop);localStorage.setItem('sjc_bulk_i_v3',String(i+1));window.open('https://wa.me/'+n+'?text='+encodeURIComponent(renderMessage(t.body,c,o)),'_blank');toast('Opened '+c.shop)}
+
+function openTemplate(id){let t=id?data.templates.find(x=>x.id===id):{name:'',body:'Dear {{name}},\\n\\n'};modal(id?'Edit Template':'New Template',`<label>Name *</label><input id="t_name" value="${esc(t.name)}"><label>Message *</label><textarea id="t_body" rows="10">${esc(t.body)}</textarea><p class="muted">Variables: {{name}} {{shop}} {{phone}} {{order}} {{weight}} {{city}} {{balance}}</p><button class="orange" onclick="saveTemplate(${id?JSON.stringify(id):'null'})">Save</button>`)}
+async function saveTemplate(id){let t={id:id||'T'+Date.now(),name:$('t_name').value.trim(),body:$('t_body').value};if(!t.name||!t.body)return toast('Name and message required');await put('templates',t);data.templates=await getAll('templates');closeModal();renderAll();toast('Template saved')}
+async function deleteTemplate(id){if(!confirm('Delete template?'))return;await del('templates',id);data.templates=await getAll('templates');renderAll()}
+function renderTemplates(){$('templateGrid').innerHTML=data.templates.map(t=>`<div class="tile"><h3>${esc(t.name)}</h3><p style="white-space:pre-wrap">${esc(t.body)}</p><button class="light" onclick="openTemplate('${esc(t.id)}')">Edit</button> <button class="red" onclick="deleteTemplate('${esc(t.id)}')">Delete</button></div>`).join('')}
+
+function openExhibition(id){let e=id?data.exhibitions.find(x=>x.id===id):{};modal('Exhibition',`<div class="formgrid"><div><label>Name</label><input id="e_name" value="${esc(e.name||'')}"></div><div><label>Location</label><input id="e_location" value="${esc(e.location||'')}"></div><div><label>Start</label><input id="e_start" type="date" value="${esc(e.start||'')}"></div><div><label>End</label><input id="e_end" type="date" value="${esc(e.end||'')}"></div><div class="full"><label>Notes</label><textarea id="e_notes">${esc(e.notes||'')}</textarea></div></div><button class="orange" onclick="saveExhibition(${id?JSON.stringify(id):'null'})">Save</button>`)}
+async function saveExhibition(id){let e={id:id||'E'+Date.now(),name:$('e_name').value.trim(),location:$('e_location').value.trim(),start:$('e_start').value,end:$('e_end').value,notes:$('e_notes').value.trim()};await put('exhibitions',e);data.exhibitions=await getAll('exhibitions');closeModal();renderAll();toast('Exhibition saved')}
+function renderExhibitions(){$('exhibitionTable').innerHTML=data.exhibitions.length?`<table><tr><th>Name</th><th>Location</th><th>Dates</th><th>Notes</th><th>Action</th></tr>${data.exhibitions.map(e=>`<tr><td>${esc(e.name)}</td><td>${esc(e.location)}</td><td>${esc(e.start)} → ${esc(e.end)}</td><td>${esc(e.notes)}</td><td><button class="light" onclick="openExhibition('${esc(e.id)}')">Edit</button></td></tr>`).join('')}</table>`:'<div class="empty">No exhibitions</div>'}
+
+function dateInRange(d){let f=$('reportFrom')?.value,t=$('reportTo')?.value;return (!f||d>=f)&&(!t||d<=t)}
+function renderReports(){let a=data.orders.filter(o=>dateInRange(o.date)),w=a.reduce((s,o)=>s+(Number(o.weight)||0),0),v=a.reduce((s,o)=>s+(Number(o.orderValue)||0),0),fin=a.filter(o=>o.status==='Finished').length,del=a.filter(o=>o.status==='Delivered').length;$('reportCards').innerHTML=[['Orders',a.length],['Weight',w.toFixed(3)+' g'],['Order Value',data.settings.currency+v.toFixed(2)],['Finished',fin],['Delivered',del],['Pending',a.filter(o=>o.status==='Pending').length]].map(x=>`<div class="card"><span class="muted">${x[0]}</span><div class="kpi">${x[1]}</div></div>`).join('');$('reportTable').innerHTML=a.length?`<table><tr><th>Order</th><th>Date</th><th>Customer</th><th>Type</th><th>Weight</th><th>Value</th><th>Status</th></tr>${a.map(o=>`<tr><td>${esc(o.orderNo)}</td><td>${esc(o.date)}</td><td>${esc(customer(o.customerId).shop)}</td><td>${esc(o.type)}</td><td>${o.weight}</td><td>${data.settings.currency}${(Number(o.orderValue)||0).toFixed(2)}</td><td>${esc(o.status)}</td></tr>`).join('')}</table>`:'<div class="empty">No orders in selected period</div>'}
+function exportCSV(){let rows=[['Order No','Date','Customer','Phone','Type','Weight','Touch','Order Value','Advance','Status','Start Date','Delivery Date'],...data.orders.map(o=>{let c=customer(o.customerId);return[o.orderNo,o.date,c.shop,c.phone,o.type,o.weight,o.touch,o.orderValue,o.advance,o.status,o.startDate,o.deliveryDate]})];let csv=rows.map(r=>r.map(x=>`"${String(x??'').replaceAll('"','""')}"`).join(',')).join('\\n');let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='shree-ji-business-report.csv';a.click()}
+function printReport(){document.querySelectorAll('.page').forEach(x=>x.classList.remove('printing'));$('reports').classList.add('printing');window.print();setTimeout(()=>$('reports').classList.remove('printing'),500)}
+
+function printOrder(id){let o=order(id),c=customer(o.customerId),w=window.open('','_blank');if(!w)return toast('Popup blocked');w.document.write(`<html><head><title>Order ${esc(o.orderNo)}</title><style>body{font-family:Arial;padding:35px}table{width:100%;border-collapse:collapse}td{padding:9px;border-bottom:1px solid #ddd}</style></head><body><h2>${esc(data.settings.company)}</h2><h3>ORDER SLIP — ${esc(o.orderNo)}</h3><table><tr><td>Customer</td><td>${esc(c.shop)}</td></tr><tr><td>Contact</td><td>${esc(c.contactName||'-')}</td></tr><tr><td>Phone</td><td>${esc(c.phone)}</td></tr><tr><td>Address</td><td>${esc(c.address||'-')}</td></tr><tr><td>Order Date</td><td>${esc(o.date)}</td></tr><tr><td>Type</td><td>${esc(o.type)}</td></tr><tr><td>Weight</td><td>${o.weight} g</td></tr><tr><td>Touch</td><td>${esc(o.touch)}</td></tr><tr><td>Screw</td><td>${esc(o.screw||'-')}</td></tr><tr><td>Lady Ring</td><td>${esc(o.ladyRing||'-')}</td></tr><tr><td>Gent Ring</td><td>${esc(o.gentRing||'-')}</td></tr><tr><td>HUID</td><td>${esc(o.huid)}</td></tr><tr><td>Order Value</td><td>${data.settings.currency}${(Number(o.orderValue)||0).toFixed(2)}</td></tr><tr><td>Advance</td><td>${data.settings.currency}${(Number(o.advance)||0).toFixed(2)}</td></tr><tr><td>Status</td><td>${esc(o.status)}</td></tr></table><p><b>Notes:</b> ${esc(o.notes||'-')}</p><script>print()<\/script></body></html>`);w.document.close()}
+function renderPrint(){$('printOrder').innerHTML=data.orders.slice().reverse().map(o=>`<option value="${esc(o.id)}">${esc(o.orderNo)} — ${esc(customer(o.customerId).shop)}</option>`).join('')||'<option value="">No orders</option>'}
+function printSelectedOrder(){let id=$('printOrder').value;if(id)printOrder(id);else toast('No order selected')}
+
+function previewCard(e){let f=e.target.files[0];window.scanFile=f;if(!f)return;let r=new FileReader();r.onload=()=>{$('cardImage').src=r.result;$('cardImage').style.display='block';$('scanStatus').textContent='Photo ready. Tap Scan.';$('scanBtn').disabled=false};r.readAsDataURL(f)}
+function normalizePhone(s){let d=String(s||'').replace(/\D/g,'');return d.length>=10?d.slice(-10):d}
+function guessPhone(text){let m=text.match(/(?:\\+?91[\\s-]?)?(?:[6-9]\\d{2}[\\s-]?\\d{3}[\\s-]?\\d{4}|[6-9]\\d{9})/);return normalizePhone(m?.[0]||'')}
+function guessName(lines){let bad=/phone|mobile|mob|email|www|street|road|address|india|tamil|nadu|manager|director|proprietor|gold|jewell|creator|llp|pvt|ltd|gst/i;return lines.filter(x=>x.length>=3&&x.length<45&&!bad.test(x)&&!/[0-9@]/.test(x)).sort((a,b)=>a.length-b.length)[0]||''}
+function guessShop(lines){let bad=/phone|mobile|email|www|street|road|address|india|manager|director|proprietor|gst/i;return lines.filter(x=>x.length>=3&&x.length<60&&!bad.test(x)).sort((a,b)=>b.length-a.length)[0]||''}
+function guessAddress(lines){let keys=/road|street|st\\.|rd\\.|main|nagar|salai|address|floor|building|market|complex|coimbatore|chennai|madurai|salem|tirunelveli|erode|trichy|bengaluru|bangalore|hyderabad|kerala|tamil|nadu|india|pin|\\d{6}/i;return lines.filter(x=>keys.test(x)).join(', ')}
+async function scanCard(){if(!window.scanFile)return toast('Choose a card photo');if(!window.Tesseract)return toast('Scanner library unavailable');$('scanBtn').disabled=true;$('scanStatus').textContent='Scanning...';try{let r=await Tesseract.recognize(window.scanFile,'eng',{logger:m=>{if(m.status==='recognizing text')$('scanStatus').textContent='Scanning '+Math.round((m.progress||0)*100)+'%'}});let text=(r.data.text||'').replace(/\\r/g,'').trim(),lines=text.split('\\n').map(x=>x.trim()).filter(Boolean);$('scanText').value=text;$('scanPhone').value=guessPhone(text);$('scanShop').value=guessShop(lines);$('scanName').value=guessName(lines);$('scanAddress').value=guessAddress(lines);$('scanStatus').textContent='Scan complete. Review before saving.';toast('Card scanned')}catch(e){$('scanStatus').textContent='Could not read card. Try a clearer image.';toast('OCR failed')}finally{$('scanBtn').disabled=false}}
+async function translateScan(){let text=$('scanText').value.trim();if(!text)return toast('Scan or enter text first');$('scanStatus').textContent='Translating to English...';try{let url='https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q='+encodeURIComponent(text);let r=await fetch(url);let j=await r.json();let translated=(j[0]||[]).map(x=>x[0]).join('');if(translated){$('scanText').value=translated;let lines=translated.split('\\n').map(x=>x.trim()).filter(Boolean);$('scanShop').value=guessShop(lines)||$('scanShop').value;$('scanName').value=guessName(lines)||$('scanName').value;$('scanAddress').value=guessAddress(lines)||$('scanAddress').value;toast('Converted to English')}}catch(e){toast('Online translation unavailable — review original text')}}
+async function saveScannedCustomer(){let c={id:'C'+Date.now(),shop:$('scanShop').value.trim(),name:$('scanShop').value.trim(),contactName:$('scanName').value.trim(),phone:normalizePhone($('scanPhone').value),alt:'',email:'',city:'',state:'',pincode:'',address:$('scanAddress').value.trim(),gstin:'',exhibition:'',notes:'Added from visiting card scanner',updatedAt:new Date().toISOString()};if(!c.shop||c.phone.length<10)return toast('Check shop name and phone');await put('customers',c);data.customers=await getAll('customers');toast('Customer added from card');clearScan();go('customers')}
+function clearScan(){window.scanFile=null;$('cardFile').value='';$('cardImage').style.display='none';$('scanText').value='';$('scanShop').value='';$('scanName').value='';$('scanPhone').value='';$('scanAddress').value='';$('scanStatus').textContent='';$('scanBtn').disabled=true}
+
+async function exportBackup(){let backup={version:4,exportedAt:new Date().toISOString(),customers:data.customers,orders:data.orders,payments:data.payments,templates:data.templates,exhibitions:data.exhibitions,settings:data.settings};let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(backup,null,2)],{type:'application/json'}));a.download='shree-ji-connect-full-backup.json';a.click();toast('Backup exported')}
+async function importBackup(e){let f=e.target.files[0];if(!f)return;try{let x=JSON.parse(await f.text());if(!x.customers||!x.orders)throw Error();for(const s of ['customers','orders','payments','templates','exhibitions'])for(const item of (x[s]||[]))await put(s,item);if(x.settings)await put('settings',{id:'main',...x.settings});await load();renderAll();toast('Backup restored')}catch(err){toast('Invalid backup')}}
+async function factoryReset(){if(!confirm('This will permanently clear the local database. Continue?'))return;for(const s of stores){let items=await getAll(s);for(const x of items)await del(s,x.id)}location.reload()}
+
+function renderDash(){let w=data.orders.reduce((s,o)=>s+(Number(o.weight)||0),0),v=data.orders.reduce((s,o)=>s+(Number(o.orderValue)||0),0),out=data.customers.reduce((s,c)=>s+Math.max(0,balance(c)),0);$('dashCompany').textContent=data.settings.company||'SHREE JI GOLD CREATOR LLP';$('dashKpis').innerHTML=[['Customers',data.customers.length],['Orders',data.orders.length],['Weight',w.toFixed(3)+' g'],['Order Value',data.settings.currency+v.toFixed(2)],['Pending',data.orders.filter(o=>o.status==='Pending').length],['Production',data.orders.filter(o=>o.status==='In Production'||o.status==='Started').length],['Finished',data.orders.filter(o=>o.status==='Finished').length],['Outstanding',data.settings.currency+out.toFixed(2)]].map(x=>`<div class="card"><span class="muted">${x[0]}</span><div class="kpi">${x[1]}</div></div>`).join('');$('recentOrders').innerHTML=data.orders.slice().reverse().slice(0,8).map(o=>`<div style="padding:9px;border-bottom:1px solid #eee"><b>${esc(o.orderNo)}</b> — ${esc(customer(o.customerId).shop)} — ${o.weight}g — ${esc(o.status)}</div>`).join('')||'<div class="empty">No orders</div>'}
+async function saveSettings(){let s={id:'main',company:$('setCompany').value.trim()||'SHREE JI GOLD CREATOR LLP',phone:$('setPhone').value.trim(),address:$('setAddress').value.trim(),currency:$('setCurrency').value.trim()||'₹'};await put('settings',s);data.settings=s;renderAll();toast('Settings saved')}
+async function hashPin(pin){const b=new TextEncoder().encode(pin),h=await crypto.subtle.digest('SHA-256',b);return [...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,'0')).join('')}
+async function lockApp(){let pin=prompt('Set a 4–8 digit app PIN');if(!pin||!/\d{4,8}$/.test(pin))return toast('Use 4–8 digits');localStorage.setItem('sjc_pin_hash_v3',await hashPin(pin));go('lock')}
+async function unlockApp(){let p=$('unlockPin').value;if(await hashPin(p)===localStorage.getItem('sjc_pin_hash_v3')){go('dashboard');$('unlockPin').value='';toast('Unlocked')}else toast('Wrong PIN')}
+
+function renderAll(){renderDash();renderCustomers();renderOrders();renderProduction();renderAccounts();renderWA();renderBulk();renderTemplates();renderExhibitions();renderReports();renderPrint();$('setCompany').value=data.settings.company||'';$('setPhone').value=data.settings.phone||'';$('setAddress').value=data.settings.address||'';$('setCurrency').value=data.settings.currency||'₹';$('dbStatus').textContent='IndexedDB active • '+data.customers.length+' customers • '+data.orders.length+' orders'}
+(async()=>{try{await openDB();await load();go('dashboard')}catch(e){console.error(e);toast('Database could not start')}})();
+</script>
+</body></html>
