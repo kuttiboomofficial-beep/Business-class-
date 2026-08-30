@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111111">
+<meta name="description" content="SHREE JI CONNECT - Business CRM">
+<title>SHREE JI CONNECT — Business CRM</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f5f7;color:#171717}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:0}
+header{background:#111;color:#fff;padding:18px 16px 14px;position:sticky;top:0;z-index:20;border-bottom:4px solid #f28a00}
+.brand{font-size:22px;font-weight:900}.sub{color:#bbb;margin-top:4px;font-size:13px}
+nav{display:flex;gap:8px;overflow:auto;background:#fff;padding:10px;position:sticky;top:74px;z-index:19;border-bottom:1px solid #ddd}
+nav button{white-space:nowrap;background:#eee;padding:10px 14px;border-radius:10px;font-weight:700}
+nav button.active{background:#f28a00;color:#fff}
+main{max-width:1200px;margin:auto;padding:16px}.page{display:none}.page.active{display:block}
+.hero{background:#111;color:#fff;border-radius:20px;padding:22px;margin-bottom:16px}.hero h1{margin:0 0 5px;font-size:24px}.muted{color:#737b84}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.card{background:#fff;border:1px solid #e0e3e7;border-radius:18px;padding:18px;box-shadow:0 3px 14px #00000008}.metric b{display:block;font-size:28px;margin-top:8px}.actions{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0}.btn{padding:11px 15px;border-radius:11px;background:#111;color:#fff;font-weight:700}.orange{background:#f28a00}.green{background:#168447}.blue{background:#2468d7}.red{background:#c62828}.light{background:#eee;color:#222}
+.tablewrap{overflow:auto}.table{width:100%;border-collapse:collapse;min-width:700px}.table th,.table td{padding:11px;border-bottom:1px solid #e5e5e5;text-align:left}.table th{background:#f7f7f7}
+.formgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.field label{display:block;font-size:13px;font-weight:700;margin-bottom:5px}.field input,.field select,.field textarea{width:100%;padding:11px;border:1px solid #ccd1d7;border-radius:10px;background:#fff}.field textarea{min-height:90px}
+.sectionhead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}.sectionhead h2{margin:0}
+.modal{display:none;position:fixed;inset:0;background:#0008;z-index:50;padding:20px;overflow:auto}.modal.show{display:block}.modalbox{max-width:720px;margin:30px auto;background:#fff;border-radius:18px;padding:20px}.close{float:right;background:#eee;border-radius:50%;width:34px;height:34px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:12px 18px;border-radius:12px;display:none;z-index:100}.toast.show{display:block}
+.badge{padding:5px 9px;border-radius:20px;background:#eee;font-size:12px;font-weight:700}.empty{padding:30px;text-align:center;color:#777}
+@media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}.formgrid{grid-template-columns:1fr}nav{top:72px}}
+@media(max-width:500px){.grid{grid-template-columns:1fr 1fr}.card{padding:14px}.metric b{font-size:23px}.hero h1{font-size:20px}main{padding:12px}}
+</style>
+</head>
+<body>
+<header><div class="brand">SHREE JI CONNECT</div><div class="sub">CRM • Orders • Production • Accounts • WhatsApp • Reports</div></header>
+
+<nav id="nav">
+<button class="active" data-page="dashboard">Dashboard</button>
+<button data-page="customers">Customers</button>
+<button data-page="orders">Orders</button>
+<button data-page="production">Production</button>
+<button data-page="accounts">Accounts</button>
+<button data-page="whatsapp">WhatsApp</button>
+<button data-page="reports">Reports</button>
+<button data-page="tools">Tools</button>
+</nav>
+
+<main>
+<section id="dashboard" class="page active">
+<div class="hero"><h1>SHREE JI GOLD CREATOR LLP</h1><div>Business Control Center</div></div>
+<div class="grid">
+<div class="card metric">Customers<b id="mCustomers">0</b></div>
+<div class="card metric">Orders<b id="mOrders">0</b></div>
+<div class="card metric">Weight<b id="mWeight">0.000 g</b></div>
+<div class="card metric">Order Value<b id="mValue">₹0.00</b></div>
+<div class="card metric">Pending<b id="mPending">0</b></div>
+<div class="card metric">Production<b id="mProduction">0</b></div>
+<div class="card metric">Finished<b id="mFinished">0</b></div>
+<div class="card metric">Outstanding<b id="mOutstanding">₹0.00</b></div>
+</div>
+<div class="card" style="margin-top:16px"><h2>Quick Actions</h2><div class="actions">
+<button class="btn orange" onclick="openCustomer()">+ Customer</button>
+<button class="btn orange" onclick="openOrder()">+ Order</button>
+<button class="btn green" onclick="go('whatsapp')">WhatsApp</button>
+<button class="btn blue" onclick="go('tools');openScan()">Scan Visiting Card</button>
+<button class="btn light" onclick="go('reports')">Reports</button>
+</div></div>
+<div class="card" style="margin-top:16px"><h2>Recent Orders</h2><div id="recentOrders"></div></div>
+</section>
+
+<section id="customers" class="page">
+<div class="sectionhead"><h2>Customer CRM</h2><button class="btn orange" onclick="openCustomer()">+ Add Customer</button></div>
+<div class="card"><input id="customerSearch" placeholder="Search customer / shop / phone..." oninput="renderCustomers()" style="width:100%;padding:12px;border:1px solid #ccd1d7;border-radius:10px"></div>
+<div class="card" style="margin-top:12px"><div class="tablewrap"><table class="table"><thead><tr><th>Name</th><th>Shop</th><th>Phone</th><th>Address</th><th>Action</th></tr></thead><tbody id="customerTable"></tbody></table></div></div>
+</section>
+
+<section id="orders" class="page">
+<div class="sectionhead"><h2>Order Management</h2><button class="btn orange" onclick="openOrder()">+ New Order</button></div>
+<div class="card"><input id="orderSearch" placeholder="Search order / customer..." oninput="renderOrders()" style="width:100%;padding:12px;border:1px solid #ccd1d7;border-radius:10px"></div>
+<div class="card" style="margin-top:12px"><div class="tablewrap"><table class="table"><thead><tr><th>Order No.</th><th>Customer</th><th>Weight</th><th>Value</th><th>Status</th><th>Action</th></tr></thead><tbody id="orderTable"></tbody></table></div></div>
+</section>
+
+<section id="production" class="page">
+<div class="sectionhead"><h2>Production Control</h2></div>
+<div class="grid">
+<div class="card metric">Pending<b id="pPending">0</b></div><div class="card metric">In Production<b id="pProduction">0</b></div>
+<div class="card metric">Finished<b id="pFinished">0</b></div><div class="card metric">Dispatched<b id="pDispatch">0</b></div>
+</div>
+<div class="card" style="margin-top:14px"><div class="tablewrap"><table class="table"><thead><tr><th>Order</th><th>Customer</th><th>Status</th><th>Update</th></tr></thead><tbody id="productionTable"></tbody></table></div></div>
+</section>
+
+<section id="accounts" class="page">
+<div class="sectionhead"><h2>Accounts & Outstanding</h2><button class="btn green" onclick="openPayment()">+ Record Payment</button></div>
+<div class="grid"><div class="card metric">Total Sales<b id="aSales">₹0.00</b></div><div class="card metric">Received<b id="aReceived">₹0.00</b></div><div class="card metric">Outstanding<b id="aOutstanding">₹0.00</b></div></div>
+<div class="card" style="margin-top:14px"><div class="tablewrap"><table class="table"><thead><tr><th>Date</th><th>Customer</th><th>Amount</th><th>Note</th></tr></thead><tbody id="paymentTable"></tbody></table></div></div>
+</section>
+
+<section id="whatsapp" class="page">
+<div class="sectionhead"><h2>WhatsApp Center</h2></div>
+<div class="grid">
+<div class="card"><h3>Message Templates</h3><p class="muted">Create reusable business messages.</p><button class="btn green" onclick="openTemplate()">+ New Template</button></div>
+<div class="card"><h3>Bulk Message</h3><p class="muted">Select customers and prepare a WhatsApp message.</p><button class="btn green" onclick="bulkMessage()">Create Bulk Message</button></div>
+</div>
+<div class="card" style="margin-top:14px"><h3>Saved Templates</h3><div id="templateList"></div></div>
+</section>
+
+<section id="reports" class="page">
+<div class="sectionhead"><h2>Business Reports</h2><button class="btn light" onclick="window.print()">Print Report</button></div>
+<div class="grid">
+<div class="card"><h3>Customers</h3><b id="rCustomers">0</b></div><div class="card"><h3>Orders</h3><b id="rOrders">0</b></div>
+<div class="card"><h3>Sales</h3><b id="rSales">₹0.00</b></div><div class="card"><h3>Outstanding</h3><b id="rOutstanding">₹0.00</b></div>
+</div>
+<div class="card" style="margin-top:14px"><h3>Order Status Summary</h3><div id="statusReport"></div></div>
+</section>
+
+<section id="tools" class="page">
+<div class="sectionhead"><h2>Tools & Data</h2></div>
+<div class="card"><h3>Visiting Card Scanner</h3><p class="muted">Upload a visiting card image. OCR can read the card and fill customer fields for review before saving.</p>
+<div class="actions"><button class="btn blue" onclick="document.getElementById('cardImage').click()">Choose Card Image</button><input id="cardImage" type="file" accept="image/*" hidden onchange="scanCard(event)"></div>
+<div id="scanResult"></div></div>
+<div class="card" style="margin-top:14px"><h3>Backup & Restore</h3><div class="actions"><button class="btn" onclick="backup()">Export Backup</button><button class="btn light" onclick="document.getElementById('restoreFile').click()">Restore Backup</button><input id="restoreFile" type="file" accept=".json" hidden onchange="restore(event)"></div></div>
+<div class="card" style="margin-top:14px"><h3>Print</h3><p class="muted">Use the browser print dialog to print customer, order and report screens.</p><button class="btn light" onclick="window.print()">Print Current Screen</button></div>
+</section>
+</main>
+
+<div id="modal" class="modal"><div class="modalbox"><button class="close" onclick="closeModal()">×</button><div id="modalContent"></div></div></div>
+<div id="toast" class="toast"></div>
+
+<script>
+const KEY='sjconnect_business_v1';
+let db=JSON.parse(localStorage.getItem(KEY)||'{"customers":[],"orders":[],"payments":[],"templates":[]}');
+
+function save(){localStorage.setItem(KEY,JSON.stringify(db));renderAll()}
+function money(n){return '₹'+(Number(n)||0).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function toast(s){let x=document.getElementById('toast');x.textContent=s;x.classList.add('show');setTimeout(()=>x.classList.remove('show'),2200)}
+function go(page){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===page));document.getElementById(page).classList.add('active');renderAll()}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>go(b.dataset.page));
+
+function openModal(html){document.getElementById('modalContent').innerHTML=html;document.getElementById('modal').classList.add('show')}
+function closeModal(){document.getElementById('modal').classList.remove('show')}
+
+function openCustomer(c=null){
+openModal(`<h2>${c?'Edit':'Add'} Customer</h2><form onsubmit="event.preventDefault();saveCustomer(${c?JSON.stringify(c.id):'null'})">
+<div class="formgrid">
+<div class="field"><label>Customer Name *</label><input id="cname" required value="${c?.name||''}"></div>
+<div class="field"><label>Shop / Company Name</label><input id="cshop" value="${c?.shop||''}"></div>
+<div class="field"><label>Phone *</label><input id="cphone" required value="${c?.phone||''}"></div>
+<div class="field"><label>Email</label><input id="cemail" value="${c?.email||''}"></div>
+<div class="field" style="grid-column:1/-1"><label>Full Address</label><textarea id="caddress">${c?.address||''}</textarea></div>
+</div><div class="actions"><button class="btn orange">Save Customer</button><button type="button" class="btn light" onclick="closeModal()">Cancel</button></div></form>`)
+}
+function saveCustomer(id){
+let obj={id:id||crypto.randomUUID(),name:cname.value.trim(),shop:cshop.value.trim(),phone:cphone.value.trim(),email:cemail.value.trim(),address:caddress.value.trim()};
+if(id){let i=db.customers.findIndex(x=>x.id===id);if(i>=0)db.customers[i]=obj}else db.customers.push(obj);save();closeModal();toast('Customer saved')}
+function renderCustomers(){
+let q=(document.getElementById('customerSearch')?.value||'').toLowerCase();
+let rows=db.customers.filter(c=>[c.name,c.shop,c.phone,c.address].join(' ').toLowerCase().includes(q));
+customerTable.innerHTML=rows.length?rows.map(c=>`<tr><td>${esc(c.name)}</td><td>${esc(c.shop)}</td><td>${esc(c.phone)}</td><td>${esc(c.address)}</td><td><button class="btn light" onclick='openCustomer(${JSON.stringify(c)})'>Edit</button></td></tr>`).join(''):`<tr><td colspan="5" class="empty">No customers yet</td></tr>`
+}
+
+function openOrder(o=null){
+let opts=db.customers.map(c=>`<option value="${c.id}" ${o?.customerId===c.id?'selected':''}>${esc(c.name)} — ${esc(c.shop)}</option>`).join('');
+openModal(`<h2>${o?'Edit':'New'} Order</h2><form onsubmit="event.preventDefault();saveOrder(${o?JSON.stringify(o.id):'null'})">
+<div class="formgrid">
+<div class="field"><label>Customer *</label><select id="ocustomer" required>${opts||'<option value="">Add a customer first</option>'}</select></div>
+<div class="field"><label>Item / Product</label><input id="oitem" value="${o?.item||''}"></div>
+<div class="field"><label>Weight (g)</label><input id="oweight" type="number" step="0.001" value="${o?.weight||0}"></div>
+<div class="field"><label>Gold Rate / g</label><input id="orate" type="number" step="0.01" value="${o?.rate||0}"></div>
+<div class="field"><label>Making / Other</label><input id="omaking" type="number" step="0.01" value="${o?.making||0}"></div>
+<div class="field"><label>Advance / Received</label><input id="oadvance" type="number" step="0.01" value="${o?.advance||0}"></div>
+<div class="field"><label>Status</label><select id="ostatus"><option>Pending</option><option>Production</option><option>Finished</option><option>Dispatched</option></select></div>
+<div class="field"><label>Delivery Date</label><input id="odate" type="date" value="${o?.delivery||''}"></div>
+<div class="field" style="grid-column:1/-1"><label>Notes</label><textarea id="onotes">${o?.notes||''}</textarea></div>
+</div><div class="actions"><button class="btn orange">Save Order</button><button type="button" class="btn light" onclick="closeModal()">Cancel</button></div></form>`)
+if(o)ostatus.value=o.status
+}
+function saveOrder(id){
+let weight=Number(oweight.value)||0,rate=Number(orate.value)||0,making=Number(omaking.value)||0,advance=Number(oadvance.value)||0;
+let obj={id:id||crypto.randomUUID(),no:id?(db.orders.find(x=>x.id===id)?.no):'SJ-'+new Date().getFullYear()+'-'+String(db.orders.length+1).padStart(4,'0'),customerId:ocustomer.value,item:oitem.value,weight,rate,making,advance,value:weight*rate+making,status:ostatus.value,delivery:odate.value,notes:onotes.value,date:new Date().toISOString()};
+if(id){let i=db.orders.findIndex(x=>x.id===id);if(i>=0)db.orders[i]=obj}else db.orders.push(obj);save();closeModal();toast('Order saved')}
+function renderOrders(){
+let q=(document.getElementById('orderSearch')?.value||'').toLowerCase();
+let rows=db.orders.filter(o=>{let c=db.customers.find(x=>x.id===o.customerId)||{};return[o.no,c.name,c.shop,o.status].join(' ').toLowerCase().includes(q)});
+orderTable.innerHTML=rows.length?rows.map(o=>{let c=db.customers.find(x=>x.id===o.customerId)||{};return `<tr><td>${o.no}</td><td>${esc(c.name||'—')}</td><td>${o.weight.toFixed(3)} g</td><td>${money(o.value)}</td><td><span class="badge">${o.status}</span></td><td><button class="btn light" onclick='openOrder(${JSON.stringify(o)})'>Edit</button></td></tr>`}).join(''):`<tr><td colspan="6" class="empty">No orders yet</td></tr>`
+}
+function renderProduction(){
+let count=s=>db.orders.filter(o=>o.status===s).length;
+pPending.textContent=count('Pending');pProduction.textContent=count('Production');pFinished.textContent=count('Finished');pDispatch.textContent=count('Dispatched');
+productionTable.innerHTML=db.orders.length?db.orders.map(o=>{let c=db.customers.find(x=>x.id===o.customerId)||{};return `<tr><td>${o.no}</td><td>${esc(c.name||'')}</td><td><span class="badge">${o.status}</span></td><td><select onchange="setStatus('${o.id}',this.value)"><option ${o.status==='Pending'?'selected':''}>Pending</option><option ${o.status==='Production'?'selected':''}>Production</option><option ${o.status==='Finished'?'selected':''}>Finished</option><option ${o.status==='Dispatched'?'selected':''}>Dispatched</option></select></td></tr>`}).join(''):`<tr><td colspan="4" class="empty">No orders yet</td></tr>`
+}
+function setStatus(id,s){let o=db.orders.find(x=>x.id===id);if(o){o.status=s;save();toast('Production status updated')}}
+function openPayment(){
+let opts=db.customers.map(c=>`<option value="${c.id}">${esc(c.name)} — ${esc(c.shop)}</option>`).join('');
+openModal(`<h2>Record Payment</h2><form onsubmit="event.preventDefault();let p={id:crypto.randomUUID(),customerId:pcustomer.value,amount:Number(pamount.value)||0,note:pnote.value,date:new Date().toISOString()};db.payments.push(p);save();closeModal();toast('Payment recorded')"><div class="formgrid"><div class="field"><label>Customer</label><select id="pcustomer">${opts}</select></div><div class="field"><label>Amount</label><input id="pamount" type="number" step="0.01" required></div><div class="field" style="grid-column:1/-1"><label>Note</label><input id="pnote"></div></div><div class="actions"><button class="btn green">Save Payment</button></div></form>`)
+}
+function renderAccounts(){
+let sales=db.orders.reduce((a,o)=>a+o.value,0),received=db.orders.reduce((a,o)=>a+o.advance,0)+db.payments.reduce((a,p)=>a+p.amount,0),out=Math.max(0,sales-received);
+aSales.textContent=money(sales);aReceived.textContent=money(received);aOutstanding.textContent=money(out);
+paymentTable.innerHTML=db.payments.length?db.payments.map(p=>{let c=db.customers.find(x=>x.id===p.customerId)||{};return `<tr><td>${new Date(p.date).toLocaleDateString()}</td><td>${esc(c.name||'')}</td><td>${money(p.amount)}</td><td>${esc(p.note||'')}</td></tr>`}).join(''):`<tr><td colspan="4" class="empty">No payments recorded</td></tr>`
+}
+
+function openTemplate(t=null){
+openModal(`<h2>${t?'Edit':'New'} WhatsApp Template</h2><form onsubmit="event.preventDefault();let obj={id:${t?JSON.stringify(t.id):'crypto.randomUUID()'},name:tname.value,message:tmessage.value};if(obj.id){let i=db.templates.findIndex(x=>x.id===obj.id);if(i>=0)db.templates[i]=obj;else db.templates.push(obj)}else db.templates.push(obj);save();closeModal();toast('Template saved')"><div class="formgrid"><div class="field"><label>Template Name</label><input id="tname" value="${t?.name||''}" required></div><div class="field" style="grid-column:1/-1"><label>Message</label><textarea id="tmessage" required>${t?.message||''}</textarea></div></div><div class="actions"><button class="btn green">Save Template</button></div></form>`)
+}
+function renderTemplates(){templateList.innerHTML=db.templates.length?db.templates.map(t=>`<div class="card" style="margin:8px 0"><b>${esc(t.name)}</b><p>${esc(t.message)}</p><button class="btn light" onclick='openTemplate(${JSON.stringify(t)})'>Edit</button></div>`).join(''):'<div class="empty">No templates yet</div>'}
+function bulkMessage(){
+let msg=prompt('Enter the WhatsApp message to prepare:');if(!msg)return;
+let count=db.customers.filter(c=>c.phone).length;
+if(!count){toast('No customers with phone numbers');return}
+let encoded=encodeURIComponent(msg);
+if(confirm(`Prepare WhatsApp message for ${count} customers?`)){db.customers.filter(c=>c.phone).forEach(c=>{let phone=c.phone.replace(/\D/g,'');window.open('https://wa.me/'+phone+'?text='+encoded,'_blank')})}
+}
+
+async function scanCard(e){
+let f=e.target.files[0];if(!f)return;
+scanResult.innerHTML='<p>Reading visiting card… Please review the extracted text before saving.</p>';
+try{
+if(!window.Tesseract){let s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';document.head.appendChild(s);await new Promise((r,j)=>{s.onload=r;s.onerror=j})}
+let r=await Tesseract.recognize(f,'eng');let text=r.data.text||'';
+let phone=(text.match(/(?:\+?\d[\d\s().-]{7,}\d)/)||[''])[0].trim();
+let email=(text.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i)||[''])[0];
+let lines=text.split(/\n+/).map(x=>x.trim()).filter(Boolean);
+let name=lines[0]||'',shop=lines[1]||'';
+scanResult.innerHTML=`<div class="card" style="margin-top:10px"><h3>Review Scan</h3><div class="formgrid">
+<div class="field"><label>Customer Name</label><input id="sname" value="${escAttr(name)}"></div>
+<div class="field"><label>Shop / Company</label><input id="sshop" value="${escAttr(shop)}"></div>
+<div class="field"><label>Phone</label><input id="sphone" value="${escAttr(phone)}"></div>
+<div class="field"><label>Email</label><input id="semail" value="${escAttr(email)}"></div>
+<div class="field" style="grid-column:1/-1"><label>Full Address / OCR Text</label><textarea id="saddress">${esc(text)}</textarea></div></div>
+<p class="muted">OCR result should always be reviewed before saving. Translation of non-English cards requires a translation service/API; this version keeps the extracted text available for review.</p>
+<button class="btn orange" onclick="saveScan()">Add Customer</button></div>`;
+}catch(err){scanResult.innerHTML='<p>Could not read this image. Try a clearer card photo.</p>'}
+}
+function openScan(){setTimeout(()=>document.getElementById('cardImage').click(),150)}
+function saveScan(){db.customers.push({id:crypto.randomUUID(),name:sname.value,shop:sshop.value,phone:sphone.value,email:semail.value,address:saddress.value});save();toast('Scanned customer added');go('customers')}
+
+function backup(){let blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='shree-ji-connect-backup.json';a.click();URL.revokeObjectURL(a.href)}
+function restore(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{db=JSON.parse(r.result);save();toast('Backup restored')}catch{toast('Invalid backup file')}};r.readAsText(f)}
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function escAttr(s){return esc(s).replace(/`/g,'&#096;')}
+
+function renderDashboard(){
+let sales=db.orders.reduce((a,o)=>a+o.value,0),received=db.orders.reduce((a,o)=>a+o.advance,0)+db.payments.reduce((a,p)=>a+p.amount,0);
+mCustomers.textContent=db.customers.length;mOrders.textContent=db.orders.length;mWeight.textContent=db.orders.reduce((a,o)=>a+o.weight,0).toFixed(3)+' g';mValue.textContent=money(sales);
+mPending.textContent=db.orders.filter(o=>o.status==='Pending').length;mProduction.textContent=db.orders.filter(o=>o.status==='Production').length;mFinished.textContent=db.orders.filter(o=>o.status==='Finished').length;mOutstanding.textContent=money(Math.max(0,sales-received));
+recentOrders.innerHTML=db.orders.length?`<div class="tablewrap"><table class="table"><tr><th>Order</th><th>Customer</th><th>Value</th><th>Status</th></tr>${db.orders.slice(-8).reverse().map(o=>{let c=db.customers.find(x=>x.id===o.customerId)||{};return `<tr><td>${o.no}</td><td>${esc(c.name||'')}</td><td>${money(o.value)}</td><td>${o.status}</td></tr>`}).join('')}</table></div>`:'<div class="empty">No orders yet</div>'
+}
+function renderReports(){
+let sales=db.orders.reduce((a,o)=>a+o.value,0),received=db.orders.reduce((a,o)=>a+o.advance,0)+db.payments.reduce((a,p)=>a+p.amount,0);
+rCustomers.textContent=db.customers.length;rOrders.textContent=db.orders.length;rSales.textContent=money(sales);rOutstanding.textContent=money(Math.max(0,sales-received));
+statusReport.innerHTML=['Pending','Production','Finished','Dispatched'].map(s=>`<p><b>${s}</b> — ${db.orders.filter(o=>o.status===s).length}</p>`).join('')
+}
+function renderAll(){renderDashboard();renderCustomers();renderOrders();renderProduction();renderAccounts();renderTemplates();renderReports()}
+renderAll();
+</script>
+</body>
+</html>
