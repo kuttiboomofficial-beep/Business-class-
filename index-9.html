@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111111">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="description" content="SHREE JI CONNECT - Business Management System">
+<title>SHREE JI CONNECT — Business Management</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;background:#f4f5f7;color:#171717;font-family:Arial,Helvetica,sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:0}
+.top{background:#111;color:#fff;padding:18px 18px 14px;border-bottom:5px solid #f28a00;position:sticky;top:0;z-index:20}
+.brand{font-size:25px;font-weight:800}.sub{color:#c9c9c9;margin-top:5px;font-size:14px}
+.nav{display:flex;gap:8px;overflow:auto;background:#fff;padding:10px;position:sticky;top:76px;z-index:19;border-bottom:1px solid #ddd}
+.nav button{white-space:nowrap;padding:11px 15px;border-radius:12px;background:#eee;font-weight:700}.nav button.active{background:#f28a00;color:#fff}
+main{max-width:1200px;margin:auto;padding:16px}.page{display:none}.page.active{display:block}
+.hero{background:#111;color:#fff;border-radius:22px;padding:25px;margin-bottom:16px}.hero h1{margin:0 0 6px;font-size:25px}.muted{color:#737a84}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.card{background:#fff;border:1px solid #e1e3e7;border-radius:20px;padding:20px;box-shadow:0 2px 10px #00000008}.metric .label{color:#727983;font-size:14px}.metric .value{font-size:28px;font-weight:800;margin-top:8px}
+.actions{display:flex;gap:10px;flex-wrap:wrap}.btn{padding:12px 16px;border-radius:12px;font-weight:800;background:#f28a00;color:#fff}.btn.green{background:#168a45}.btn.blue{background:#2563d8}.btn.dark{background:#111}.btn.gray{background:#eee;color:#222}.btn.red{background:#c62828}
+.section-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:5px 0 15px}.section-title h2{margin:0}
+.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:14px}.field{display:flex;flex-direction:column;gap:6px;min-width:160px;flex:1}.field label{font-size:12px;font-weight:700;color:#666}.field input,.field select,.field textarea{border:1px solid #d5d9de;border-radius:10px;padding:11px;background:#fff;outline:none}.field textarea{min-height:80px;resize:vertical}
+.formgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.full{grid-column:1/-1}
+.tablewrap{overflow:auto;background:#fff;border:1px solid #e1e3e7;border-radius:16px}.table{width:100%;border-collapse:collapse;min-width:720px}.table th,.table td{padding:12px;border-bottom:1px solid #eee;text-align:left;font-size:13px}.table th{background:#fafafa}.pill{display:inline-block;padding:5px 9px;border-radius:99px;background:#eee;font-size:11px;font-weight:700}.pill.green{background:#dff5e7;color:#087534}.pill.orange{background:#fff0d8;color:#a85b00}.pill.red{background:#ffe1e1;color:#a00}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:15px}.empty{text-align:center;padding:35px;color:#777}
+.modal{display:none;position:fixed;inset:0;background:#0008;z-index:50;padding:15px;overflow:auto}.modal.open{display:block}.modalbox{background:#fff;max-width:800px;margin:30px auto;border-radius:20px;padding:20px}.modalhead{display:flex;justify-content:space-between;align-items:center}.modalhead h2{margin:0}.close{font-size:25px;background:#eee;border-radius:50%;width:38px;height:38px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:12px 18px;border-radius:12px;display:none;z-index:100}.toast.show{display:block}
+.scanbox{border:2px dashed #bbb;border-radius:18px;padding:25px;text-align:center}.video{width:100%;max-height:330px;border-radius:15px;background:#111;display:none}.small{font-size:12px}
+@media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}.nav{top:72px}.formgrid{grid-template-columns:1fr}}
+@media(max-width:520px){.grid{grid-template-columns:repeat(2,1fr);gap:10px}.card{padding:15px}.metric .value{font-size:23px}.hero{padding:20px}.brand{font-size:22px}main{padding:12px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand">SHREE JI CONNECT</div>
+  <div class="sub">CRM • Orders • Production • Accounts • WhatsApp • Reports</div>
+</header>
+<nav class="nav" id="nav">
+  <button data-page="dashboard" class="active">Dashboard</button><button data-page="customers">Customers</button>
+  <button data-page="orders">Orders</button><button data-page="production">Production</button><button data-page="accounts">Accounts</button>
+  <button data-page="whatsapp">WhatsApp</button><button data-page="reports">Reports</button><button data-page="tools">Tools</button>
+</nav>
+<main>
+<section id="dashboard" class="page active">
+ <div class="hero"><h1>SHREE JI GOLD CREATOR LLP</h1><div>Business Control Center</div></div>
+ <div class="grid">
+  <div class="card metric"><div class="label">Customers</div><div class="value" id="mCustomers">0</div></div>
+  <div class="card metric"><div class="label">Orders</div><div class="value" id="mOrders">0</div></div>
+  <div class="card metric"><div class="label">Total Weight</div><div class="value" id="mWeight">0.000 g</div></div>
+  <div class="card metric"><div class="label">Order Value</div><div class="value" id="mValue">₹0.00</div></div>
+  <div class="card metric"><div class="label">Pending Orders</div><div class="value" id="mPending">0</div></div>
+  <div class="card metric"><div class="label">In Production</div><div class="value" id="mProduction">0</div></div>
+  <div class="card metric"><div class="label">Finished</div><div class="value" id="mFinished">0</div></div>
+  <div class="card metric"><div class="label">Outstanding</div><div class="value" id="mOutstanding">₹0.00</div></div>
+ </div>
+ <div class="card" style="margin-top:16px"><h2>Quick Actions</h2><div class="actions">
+  <button class="btn" onclick="openCustomer()">+ Customer</button><button class="btn" onclick="openOrder()">+ Order</button>
+  <button class="btn green" onclick="go('whatsapp')">WhatsApp</button><button class="btn blue" onclick="openScanner()">Scan Visiting Card</button>
+  <button class="btn gray" onclick="go('reports')">Reports</button>
+ </div></div>
+ <div class="card" style="margin-top:16px"><div class="section-title"><h2>Recent Orders</h2><button class="btn gray" onclick="go('orders')">View All</button></div><div class="tablewrap"><table class="table"><tbody id="recentOrders"></tbody></table></div></div>
+</section>
+
+<section id="customers" class="page">
+ <div class="section-title"><h2>Customer CRM</h2><button class="btn" onclick="openCustomer()">+ Add Customer</button></div>
+ <div class="toolbar"><input id="customerSearch" placeholder="Search name / shop / phone" oninput="renderCustomers()" style="flex:1;padding:12px;border:1px solid #ddd;border-radius:10px"></div>
+ <div class="tablewrap"><table class="table"><thead><tr><th>Customer</th><th>Shop</th><th>Phone</th><th>Address</th><th>Orders</th><th>Actions</th></tr></thead><tbody id="customerRows"></tbody></table></div>
+</section>
+
+<section id="orders" class="page">
+ <div class="section-title"><h2>Order Management</h2><button class="btn" onclick="openOrder()">+ New Order</button></div>
+ <div class="toolbar"><input id="orderSearch" placeholder="Search order / customer / item" oninput="renderOrders()" style="flex:1;padding:12px;border:1px solid #ddd;border-radius:10px"></div>
+ <div class="tablewrap"><table class="table"><thead><tr><th>Order No.</th><th>Customer</th><th>Item</th><th>Weight</th><th>Value</th><th>Advance</th><th>Status</th><th>Actions</th></tr></thead><tbody id="orderRows"></tbody></table></div>
+</section>
+
+<section id="production" class="page">
+ <div class="section-title"><h2>Production Control</h2></div>
+ <div class="card"><div class="toolbar"><div class="field"><label>Filter Status</label><select id="prodFilter" onchange="renderProduction()"><option value="">All</option><option>Pending</option><option>Production</option><option>QC</option><option>Hallmark</option><option>Finished</option><option>Dispatched</option></select></div></div></div>
+ <div class="tablewrap"><table class="table"><thead><tr><th>Order</th><th>Customer</th><th>Item</th><th>Weight</th><th>Status</th><th>Update</th></tr></thead><tbody id="prodRows"></tbody></table></div>
+</section>
+
+<section id="accounts" class="page">
+ <div class="section-title"><h2>Accounts & Outstanding</h2><button class="btn green" onclick="openPayment()">+ Record Payment</button></div>
+ <div class="grid">
+  <div class="card metric"><div class="label">Total Order Value</div><div class="value" id="aValue">₹0</div></div>
+  <div class="card metric"><div class="label">Total Advance</div><div class="value" id="aAdvance">₹0</div></div>
+  <div class="card metric"><div class="label">Outstanding</div><div class="value" id="aOutstanding">₹0</div></div>
+  <div class="card metric"><div class="label">Payments Recorded</div><div class="value" id="aPayments">0</div></div>
+ </div>
+ <div class="tablewrap" style="margin-top:16px"><table class="table"><thead><tr><th>Order</th><th>Customer</th><th>Value</th><th>Paid</th><th>Balance</th><th>Action</th></tr></thead><tbody id="accountRows"></tbody></table></div>
+</section>
+
+<section id="whatsapp" class="page">
+ <div class="section-title"><h2>WhatsApp Center</h2><button class="btn" onclick="openTemplate()">+ Template</button></div>
+ <div class="two">
+  <div class="card"><h3>Message</h3><div class="field"><label>Template</label><select id="waTemplate" onchange="applyTemplate()"></select></div><div class="field"><label>Message</label><textarea id="waMessage" rows="8" placeholder="Type your message..."></textarea></div><div class="actions"><button class="btn green" onclick="sendSelectedWA()">Open WhatsApp</button><button class="btn gray" onclick="copyWA()">Copy</button></div><p class="small muted">WhatsApp controls the final sending step. This app opens the prepared chat/message; it does not bypass WhatsApp limits.</p></div>
+  <div class="card"><h3>Bulk Customer List</h3><div id="waList"></div><div class="actions" style="margin-top:12px"><button class="btn blue" onclick="selectAllWA(true)">Select All</button><button class="btn gray" onclick="selectAllWA(false)">Clear</button></div></div>
+ </div>
+ <div class="card" style="margin-top:15px"><h3>Templates</h3><div id="templateList"></div></div>
+</section>
+
+<section id="reports" class="page">
+ <div class="section-title"><h2>Reports</h2><div class="actions"><button class="btn gray" onclick="printReport()">Print</button><button class="btn blue" onclick="exportCSV()">Export CSV</button></div></div>
+ <div class="grid">
+  <div class="card"><h3>Order Summary</h3><p id="reportOrder"></p></div><div class="card"><h3>Production Summary</h3><p id="reportProd"></p></div>
+  <div class="card"><h3>Accounts Summary</h3><p id="reportAcc"></p></div><div class="card"><h3>Customer Summary</h3><p id="reportCust"></p></div>
+ </div>
+ <div class="card" style="margin-top:15px"><h3>Order Register</h3><div class="tablewrap"><table class="table"><tbody id="reportRows"></tbody></table></div></div>
+</section>
+
+<section id="tools" class="page">
+ <div class="section-title"><h2>Tools & Settings</h2></div>
+ <div class="two">
+  <div class="card"><h3>Visiting Card Scanner</h3><div class="scanbox"><p>Use your camera or choose a visiting-card image. OCR can extract readable text; review the fields before saving.</p><button class="btn blue" onclick="openScanner()">Open Scanner</button><input type="file" id="cardFile" accept="image/*" capture="environment" style="display:none" onchange="processCardFile(event)"><button class="btn gray" onclick="document.getElementById('cardFile').click()">Choose Image</button></div><video id="camera" class="video" autoplay playsinline></video><div id="ocrStatus" class="small muted" style="margin-top:8px"></div></div>
+  <div class="card"><h3>Data & Security</h3><div class="actions"><button class="btn dark" onclick="exportBackup()">Backup Data</button><button class="btn gray" onclick="document.getElementById('restoreFile').click()">Restore</button><input id="restoreFile" type="file" accept=".json" hidden onchange="restoreBackup(event)"><button class="btn red" onclick="clearAllData()">Clear All Data</button></div><p class="small muted">Data is stored locally in this browser. For multi-device/cloud sync and user login, connect a secure backend before using this as the production system.</p></div>
+ </div>
+</section>
+</main>
+
+<div class="modal" id="modal"><div class="modalbox"><div class="modalhead"><h2 id="modalTitle"></h2><button class="close" onclick="closeModal()">×</button></div><div id="modalBody"></div></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const KEY='sjconnect_v4';
+let db=JSON.parse(localStorage.getItem(KEY)||'null')||{customers:[],orders:[],payments:[],templates:[
+ {id:1,name:'Order Confirmation',text:'Dear {{customer}}, thank you for your order {{order}}. We will update you once production is completed.'},
+ {id:2,name:'Payment Reminder',text:'Dear {{customer}}, this is a friendly reminder regarding the outstanding amount of ₹{{balance}} for order {{order}}.'},
+ {id:3,name:'Dispatch Update',text:'Dear {{customer}}, your order {{order}} is ready for dispatch. Thank you for your business.'}
+]};
+function save(){localStorage.setItem(KEY,JSON.stringify(db));renderAll()}
+function money(n){return '₹'+Number(n||0).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function toast(t){let e=document.getElementById('toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2200)}
+function go(p){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(p).classList.add('active');document.querySelectorAll('#nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===p));renderAll();scrollTo(0,0)}
+document.querySelectorAll('#nav button').forEach(b=>b.onclick=()=>go(b.dataset.page));
+function openModal(title,body){document.getElementById('modalTitle').textContent=title;document.getElementById('modalBody').innerHTML=body;document.getElementById('modal').classList.add('open')}
+function closeModal(){document.getElementById('modal').classList.remove('open')}
+
+function openCustomer(c=null){
+ c=c||{};
+ openModal(c.id?'Edit Customer':'Add Customer',`<div class="formgrid">
+ <div class="field"><label>Customer Name *</label><input id="fName" value="${esc(c.name)}"></div>
+ <div class="field"><label>Shop / Company</label><input id="fShop" value="${esc(c.shop)}"></div>
+ <div class="field"><label>Phone *</label><input id="fPhone" inputmode="tel" value="${esc(c.phone)}"></div>
+ <div class="field"><label>Email</label><input id="fEmail" value="${esc(c.email)}"></div>
+ <div class="field full"><label>Full Address</label><textarea id="fAddress">${esc(c.address)}</textarea></div>
+ <div class="field"><label>City</label><input id="fCity" value="${esc(c.city)}"></div>
+ <div class="field"><label>Notes</label><input id="fNotes" value="${esc(c.notes)}"></div>
+ </div><div class="actions" style="margin-top:15px"><button class="btn" onclick="saveCustomer(${c.id||0})">Save Customer</button><button class="btn gray" onclick="closeModal()">Cancel</button></div>`)
+}
+function saveCustomer(id){
+ let c={id:id||Date.now(),name:fName.value.trim(),shop:fShop.value.trim(),phone:fPhone.value.trim(),email:fEmail.value.trim(),address:fAddress.value.trim(),city:fCity.value.trim(),notes:fNotes.value.trim()};
+ if(!c.name||!c.phone)return toast('Name and phone are required');
+ let i=db.customers.findIndex(x=>x.id==id);if(i>=0)db.customers[i]=c;else db.customers.push(c);closeModal();save();toast('Customer saved');
+}
+function deleteCustomer(id){if(confirm('Delete this customer?')){db.customers=db.customers.filter(c=>c.id!=id);save();}}
+function renderCustomers(){
+ let q=(document.getElementById('customerSearch')?.value||'').toLowerCase();
+ let rows=db.customers.filter(c=>(c.name+' '+c.shop+' '+c.phone+' '+c.address).toLowerCase().includes(q));
+ customerRows.innerHTML=rows.length?rows.map(c=>`<tr><td><b>${esc(c.name)}</b></td><td>${esc(c.shop)}</td><td>${esc(c.phone)}</td><td>${esc(c.address||'-')}</td><td>${db.orders.filter(o=>o.customerId==c.id).length}</td><td><button class="btn gray" onclick='openCustomer(${JSON.stringify(c)})'>Edit</button> <button class="btn red" onclick="deleteCustomer(${c.id})">Delete</button></td></tr>`).join(''):`<tr><td colspan="6" class="empty">No customers yet.</td></tr>`;
+}
+
+function openOrder(o=null){
+ o=o||{};let opts=db.customers.map(c=>`<option value="${c.id}" ${o.customerId==c.id?'selected':''}>${esc(c.name)} — ${esc(c.shop)}</option>`).join('');
+ openModal(o.id?'Edit Order':'New Order',`<div class="formgrid">
+ <div class="field"><label>Customer *</label><select id="oCustomer"><option value="">Select customer</option>${opts}</select></div>
+ <div class="field"><label>Order No.</label><input id="oNo" value="${esc(o.no||('SJ-'+new Date().getFullYear()+'-'+String(db.orders.length+1).padStart(4,'0')))}"></div>
+ <div class="field"><label>Item / Design *</label><input id="oItem" value="${esc(o.item)}"></div>
+ <div class="field"><label>Weight (g)</label><input id="oWeight" type="number" step="0.001" value="${o.weight||''}"></div>
+ <div class="field"><label>Gold Touch</label><input id="oTouch" value="${esc(o.touch||'916')}"></div>
+ <div class="field"><label>Rate / g</label><input id="oRate" type="number" step="0.01" value="${o.rate||''}"></div>
+ <div class="field"><label>Making / Other</label><input id="oMaking" type="number" step="0.01" value="${o.making||''}"></div>
+ <div class="field"><label>Order Value *</label><input id="oValue" type="number" step="0.01" value="${o.value||''}"></div>
+ <div class="field"><label>Advance Paid</label><input id="oAdvance" type="number" step="0.01" value="${o.advance||''}"></div>
+ <div class="field"><label>Screw Type</label><input id="oScrew" value="${esc(o.screw)}"></div>
+ <div class="field"><label>Delivery Date</label><input id="oDate" type="date" value="${o.delivery||''}"></div>
+ <div class="field"><label>Status</label><select id="oStatus">${['Pending','Production','QC','Hallmark','Finished','Dispatched'].map(s=>`<option ${o.status===s?'selected':''}>${s}</option>`).join('')}</select></div>
+ <div class="field full"><label>Notes</label><textarea id="oNotes">${esc(o.notes)}</textarea></div>
+ </div><div class="actions" style="margin-top:15px"><button class="btn" onclick="saveOrder(${o.id||0})">Save Order</button><button class="btn gray" onclick="closeModal()">Cancel</button></div>`)
+}
+function saveOrder(id){
+ let value=Number(oValue.value||0),advance=Number(oAdvance.value||0),weight=Number(oWeight.value||0);
+ if(!oCustomer.value||!oItem.value.trim()||value<0)return toast('Customer, item and value are required');
+ let o={id:id||Date.now(),customerId:Number(oCustomer.value),no:oNo.value.trim(),item:oItem.value.trim(),weight,touch:oTouch.value.trim(),rate:Number(oRate.value||0),making:Number(oMaking.value||0),value,advance, screw:oScrew.value.trim(),delivery:oDate.value,status:oStatus.value,notes:oNotes.value.trim(),created:id?(db.orders.find(x=>x.id==id)?.created||Date.now()):Date.now()};
+ let i=db.orders.findIndex(x=>x.id==id);if(i>=0)db.orders[i]=o;else db.orders.push(o);closeModal();save();toast('Order saved');
+}
+function deleteOrder(id){if(confirm('Delete this order?')){db.orders=db.orders.filter(o=>o.id!=id);db.payments=db.payments.filter(p=>p.orderId!=id);save()}}
+function custName(id){return db.customers.find(c=>c.id==id)?.name||'Unknown'}
+function renderOrders(){
+ let q=(document.getElementById('orderSearch')?.value||'').toLowerCase();
+ let rows=db.orders.filter(o=>(o.no+' '+custName(o.customerId)+' '+o.item).toLowerCase().includes(q));
+ orderRows.innerHTML=rows.length?rows.map(o=>`<tr><td><b>${esc(o.no)}</b></td><td>${esc(custName(o.customerId))}</td><td>${esc(o.item)}</td><td>${o.weight.toFixed(3)} g</td><td>${money(o.value)}</td><td>${money(o.advance)}</td><td><span class="pill ${o.status==='Finished'||o.status==='Dispatched'?'green':o.status==='Pending'?'orange':'red'}">${o.status}</span></td><td><button class="btn gray" onclick='openOrder(${JSON.stringify(o)})'>Edit</button> <button class="btn red" onclick="deleteOrder(${o.id})">Delete</button></td></tr>`).join(''):`<tr><td colspan="8" class="empty">No orders yet.</td></tr>`;
+}
+function renderProduction(){
+ let f=document.getElementById('prodFilter')?.value||'';let rows=db.orders.filter(o=>!f||o.status===f);
+ prodRows.innerHTML=rows.length?rows.map(o=>`<tr><td>${esc(o.no)}</td><td>${esc(custName(o.customerId))}</td><td>${esc(o.item)}</td><td>${o.weight.toFixed(3)} g</td><td><span class="pill">${o.status}</span></td><td><select onchange="changeStatus(${o.id},this.value)">${['Pending','Production','QC','Hallmark','Finished','Dispatched'].map(s=>`<option ${s===o.status?'selected':''}>${s}</option>`).join('')}</select></td></tr>`).join(''):`<tr><td colspan="6" class="empty">No production records.</td></tr>`;
+}
+function changeStatus(id,s){let o=db.orders.find(x=>x.id==id);if(o){o.status=s;save();toast('Status updated')}}
+function openPayment(order=null){
+ let opts=db.orders.map(o=>`<option value="${o.id}" ${order?.id==o.id?'selected':''}>${esc(o.no)} — ${esc(custName(o.customerId))} — Balance ${money(o.value-o.advance)}</option>`).join('');
+ openModal('Record Payment',`<div class="formgrid"><div class="field full"><label>Order</label><select id="pOrder">${opts}</select></div><div class="field"><label>Amount</label><input id="pAmount" type="number" step="0.01"></div><div class="field"><label>Mode</label><select id="pMode"><option>Cash</option><option>UPI</option><option>Bank Transfer</option><option>Card</option></select></div><div class="field full"><label>Notes</label><input id="pNotes"></div></div><div class="actions" style="margin-top:15px"><button class="btn green" onclick="savePayment()">Save Payment</button></div>`)
+}
+function savePayment(){let o=db.orders.find(x=>x.id==Number(pOrder.value)),amt=Number(pAmount.value||0);if(!o||amt<=0)return toast('Enter a valid payment');let bal=o.value-o.advance;if(amt>bal)return toast('Payment exceeds current balance');o.advance+=amt;db.payments.push({id:Date.now(),orderId:o.id,amount:amt,mode:pMode.value,notes:pNotes.value,date:new Date().toISOString()});closeModal();save();toast('Payment recorded')}
+function renderAccounts(){
+ let total=db.orders.reduce((s,o)=>s+o.value,0),adv=db.orders.reduce((s,o)=>s+o.advance,0);
+ aValue.textContent=money(total);aAdvance.textContent=money(adv);aOutstanding.textContent=money(total-adv);aPayments.textContent=db.payments.length;
+ accountRows.innerHTML=db.orders.length?db.orders.map(o=>`<tr><td>${esc(o.no)}</td><td>${esc(custName(o.customerId))}</td><td>${money(o.value)}</td><td>${money(o.advance)}</td><td>${money(o.value-o.advance)}</td><td><button class="btn green" onclick='openPayment(${JSON.stringify(o)})'>Payment</button></td></tr>`).join(''):`<tr><td colspan="6" class="empty">No orders.</td></tr>`;
+}
+function renderWA(){
+ waTemplate.innerHTML=db.templates.map(t=>`<option value="${t.id}">${esc(t.name)}</option>`).join('');applyTemplate();
+ waList.innerHTML=db.customers.length?db.customers.map(c=>`<label style="display:block;padding:8px;border-bottom:1px solid #eee"><input type="checkbox" class="wac" value="${c.id}"> ${esc(c.name)} — ${esc(c.phone)}</label>`).join(''):'<div class="empty">Add customers first.</div>';
+ templateList.innerHTML=db.templates.map(t=>`<div class="card" style="margin:7px 0;padding:12px"><b>${esc(t.name)}</b><div class="small muted">${esc(t.text)}</div><button class="btn red" style="margin-top:7px" onclick="deleteTemplate(${t.id})">Delete</button></div>`).join('');
+}
+function applyTemplate(){let t=db.templates.find(x=>x.id==Number(waTemplate.value));if(t)waMessage.value=t.text}
+function sendSelectedWA(){
+ let ids=[...document.querySelectorAll('.wac:checked')].map(x=>Number(x.value));if(!ids.length)return toast('Select at least one customer');
+ let msg=waMessage.value.trim();if(!msg)return toast('Enter a message');
+ let c=db.customers.find(x=>x.id==ids[0]);let text=msg.replaceAll('{{customer}}',c?.name||'').replaceAll('{{balance}}','').replaceAll('{{order}}','');
+ window.open('https://wa.me/'+String(c.phone).replace(/\D/g,'')+'?text='+encodeURIComponent(text),'_blank');toast('WhatsApp opened for first selected customer');
+}
+function selectAllWA(v){document.querySelectorAll('.wac').forEach(x=>x.checked=v)}
+function copyWA(){navigator.clipboard?.writeText(waMessage.value);toast('Message copied')}
+function openTemplate(){openModal('Add WhatsApp Template',`<div class="formgrid"><div class="field"><label>Template Name</label><input id="tName"></div><div class="field full"><label>Message</label><textarea id="tText" rows="6" placeholder="Use {{customer}}, {{order}}, {{balance}}"></textarea></div></div><div class="actions" style="margin-top:15px"><button class="btn" onclick="saveTemplate()">Save Template</button></div>`)}
+function saveTemplate(){if(!tName.value.trim()||!tText.value.trim())return toast('Fill both fields');db.templates.push({id:Date.now(),name:tName.value.trim(),text:tText.value.trim()});closeModal();save();toast('Template saved')}
+function deleteTemplate(id){if(confirm('Delete template?')){db.templates=db.templates.filter(x=>x.id!=id);save()}}
+
+function renderDashboard(){
+ let value=db.orders.reduce((s,o)=>s+o.value,0),weight=db.orders.reduce((s,o)=>s+o.weight,0),out=db.orders.reduce((s,o)=>s+(o.value-o.advance),0);
+ mCustomers.textContent=db.customers.length;mOrders.textContent=db.orders.length;mWeight.textContent=weight.toFixed(3)+' g';mValue.textContent=money(value);
+ mPending.textContent=db.orders.filter(o=>o.status==='Pending').length;mProduction.textContent=db.orders.filter(o=>['Production','QC','Hallmark'].includes(o.status)).length;mFinished.textContent=db.orders.filter(o=>o.status==='Finished').length;mOutstanding.textContent=money(out);
+ recentOrders.innerHTML=db.orders.slice().sort((a,b)=>b.created-a.created).slice(0,8).length?'<tr><th>Order</th><th>Customer</th><th>Item</th><th>Value</th><th>Status</th></tr>'+db.orders.slice().sort((a,b)=>b.created-a.created).slice(0,8).map(o=>`<tr><td>${esc(o.no)}</td><td>${esc(custName(o.customerId))}</td><td>${esc(o.item)}</td><td>${money(o.value)}</td><td>${o.status}</td></tr>`).join(''):'<tr><td class="empty">No orders yet.</td></tr>';
+}
+function renderReports(){
+ let total=db.orders.reduce((s,o)=>s+o.value,0),adv=db.orders.reduce((s,o)=>s+o.advance,0);
+ reportOrder.textContent=`${db.orders.length} orders • ${money(total)} total value`;reportProd.textContent=`${db.orders.filter(o=>!['Finished','Dispatched'].includes(o.status)).length} active production orders`;
+ reportAcc.textContent=`${money(adv)} paid • ${money(total-adv)} outstanding`;reportCust.textContent=`${db.customers.length} customers`;
+ reportRows.innerHTML='<tr><th>Order</th><th>Customer</th><th>Item</th><th>Weight</th><th>Value</th><th>Balance</th><th>Status</th></tr>'+db.orders.map(o=>`<tr><td>${esc(o.no)}</td><td>${esc(custName(o.customerId))}</td><td>${esc(o.item)}</td><td>${o.weight.toFixed(3)} g</td><td>${money(o.value)}</td><td>${money(o.value-o.advance)}</td><td>${o.status}</td></tr>`).join('');
+}
+function renderAll(){renderDashboard();renderCustomers();renderOrders();renderProduction();renderAccounts();renderWA();renderReports()}
+function exportBackup(){let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(db,null,2)],{type:'application/json'}));a.download='shree-ji-connect-backup.json';a.click();URL.revokeObjectURL(a.href);toast('Backup exported')}
+function restoreBackup(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let x=JSON.parse(r.result);if(!x.customers||!x.orders)throw 0;db=x;save();toast('Backup restored')}catch{toast('Invalid backup file')}};r.readAsText(f)}
+function clearAllData(){if(confirm('This will permanently clear local app data. Continue?')){localStorage.removeItem(KEY);location.reload()}}
+function exportCSV(){let lines=[['Order','Customer','Item','Weight','Value','Advance','Balance','Status'],...db.orders.map(o=>[o.no,custName(o.customerId),o.item,o.weight,o.value,o.advance,o.value-o.advance,o.status])];let csv=lines.map(r=>r.map(x=>`"${String(x).replaceAll('"','""')}"`).join(',')).join('\\n');let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='shree-ji-order-report.csv';a.click()}
+function printReport(){let w=window.open('','_blank');w.document.write('<html><head><title>SHREE JI CONNECT Report</title><style>body{font-family:Arial;padding:25px}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ddd;padding:8px;text-align:left}</style></head><body><h1>SHREE JI GOLD CREATOR LLP</h1><h2>Order Report</h2>'+document.getElementById('reportRows').parentElement.parentElement.outerHTML+'<script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));}</script>
+</body></html>');w.document.close();w.print()}
+function openScanner(){go('tools');document.getElementById('cardFile').click()}
+function processCardFile(e){
+ let f=e.target.files[0];if(!f)return;ocrStatus.textContent='Reading visiting card…';
+ if(!window.Tesseract){ocrStatus.textContent='OCR engine loading…';let s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';s.onload=()=>runOCR(f);s.onerror=()=>ocrStatus.textContent='OCR library could not load. You can still enter details manually.';document.head.appendChild(s)}else runOCR(f)
+}
+async function runOCR(f){
+ try{let r=await Tesseract.recognize(f,'eng');let text=r.data.text||'';ocrStatus.textContent='Text extracted. Review before saving.';let phone=(text.match(/(?:\\+?\\d[\\d\\s().-]{8,}\\d)/)||[''])[0].trim();let lines=text.split(/\\n+/).map(x=>x.trim()).filter(Boolean);let email=(text.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}/i)||[''])[0];openCustomer({name:lines[0]||'',shop:lines[1]||'',phone:phone.replace(/[\\s().-]/g,''),email,address:lines.slice(2).join(', ')});}catch(e){ocrStatus.textContent='Could not read the card. Please enter the details manually.'}
+}
+renderAll();
+</script>
+<script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));}</script>
+</body></html>
